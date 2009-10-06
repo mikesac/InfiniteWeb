@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.infinite.db.Manager;
 import org.infinite.db.dto.AreaItem;
 import org.infinite.util.GenericUtil;
-import org.infinite.web.PagesCst;
 
 public class AreaItemSave extends HttpServlet {
 

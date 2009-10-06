@@ -19,7 +19,7 @@ import org.infinite.engines.fight.FightEngine;
 import org.infinite.engines.fight.FightRound;
 import org.infinite.engines.fight.PlayerInterface;
 import org.infinite.objects.Character;
-import org.infinite.web.PagesCst;
+import org.infinite.web.utils.PagesCst;
 
 public class FightMap  extends HttpServlet {
 

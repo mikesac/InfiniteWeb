@@ -4,7 +4,7 @@
 
 <%@page import="org.infinite.objects.Character"%>
 <%@page import="java.util.List"%>
-<%@page import="org.infinite.db.dao.Player"%><html>
+<%@page import="org.infinite.db.dto.Player"%><html>
 <%@page import="org.infinite.engines.map.MapEngine"%><html>
 
 <head>
@@ -62,7 +62,7 @@
 					<td><img src="<%=request.getContextPath()%>/imgs/web/cha.png" alt="Charisma" title="Charisma"></td>
 					<td><input readonly="readonly" type="text" size=8" value="<% out.write( ""+l.get(i).getBaseCha() ); %>" /></td>
 					<td><img src="<%=request.getContextPath()%>/imgs/web/area.png" alt="Area" title="Area"></td>
-					<td colspan="3"><input readonly="readonly" type="text" size="20" value="<%=  MapEngine.getAreaFromAreaItem( l.get(i).getAreaItem() ).getName()  %>" /></td>
+<!--					<td colspan="3"><input readonly="readonly" type="text" size="20" value="<%=  MapEngine.getAreaFromAreaItem( l.get(i).getAreaItem() ).getName()  %>" /></td>-->
 				</tr>
 			</table>
 			

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.infinite.db.Manager;
 import org.infinite.db.dto.Area;
 import org.infinite.util.GenericUtil;
-import org.infinite.web.PagesCst;
 
 public class MapSave extends HttpServlet {
 

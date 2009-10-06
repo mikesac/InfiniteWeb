@@ -17,7 +17,7 @@ import org.infinite.engines.magic.MagicEngine;
 import org.infinite.objects.Character;
 import org.infinite.util.GenericUtil;
 import org.infinite.util.InfiniteCst;
-import org.infinite.web.PagesCst;
+import org.infinite.web.utils.PagesCst;
 
 public class Shop extends HttpServlet {
 

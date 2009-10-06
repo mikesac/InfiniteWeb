@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.infinite.web.PagesCst;
 import org.infinite.web.engines.account.AccountEngine;
+import org.infinite.web.utils.PagesCst;
 
 public class Register extends HttpServlet {
 

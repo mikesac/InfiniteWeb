@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
 
-	<!--
-		all controllers are identified by @Controller annotation into given
-		package.
-	-->
+	<bean id="pages" class="org.infinite.web.utils.PagesCst" />
+
+
+	<!-- all controllers are identified by @Controller annotation into given package. -->
 	<context:component-scan base-package="org.infinite.web" />
 
 	<!--
@@ -54,11 +54,9 @@
 		<!-- High priority -->
 		<property name="order" value="1" />
 
-
-		<!--
-			if you want to use the Spring FreeMarker macros, set this property to
-			true
-		-->
+		<property name="requestContextAttribute" value="rc"/>
+		<property name="exposeRequestAttributes" value="true"/>
+		<property name="exposeSessionAttributes" value="true"/>
 		<property name="exposeSpringMacroHelpers" value="true" />
 	</bean>
 

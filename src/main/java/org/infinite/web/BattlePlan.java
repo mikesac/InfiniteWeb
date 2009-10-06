@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.infinite.objects.Character;
+import org.infinite.web.utils.PagesCst;
 
 
 public class BattlePlan extends HttpServlet {

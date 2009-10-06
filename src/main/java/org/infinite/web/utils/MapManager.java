@@ -16,7 +16,6 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.infinite.util.GenericUtil;
 import org.infinite.util.ImageUtil;
-import org.infinite.web.PagesCst;
 
 public class MapManager extends HttpServlet {
 

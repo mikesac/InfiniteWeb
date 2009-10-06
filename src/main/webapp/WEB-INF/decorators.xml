@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/decorators">
+
+	<decorator name="header" page="headerLayout.dec">
+		<pattern>*character*</pattern>
+		<pattern>*/login/*</pattern>
+		<pattern>/index.*</pattern>
+	</decorator>
+	
+	<decorator name="border" page="borderLayout.dec">
+		<pattern>*/player/*</pattern>
+	</decorator>
+
+	<excludes>
+		<pattern>*css*</pattern>
+		<pattern>*json*</pattern>
+	</excludes>
+
+</decorators>
+
