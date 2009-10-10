@@ -38,12 +38,14 @@ public class StatsController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView initStatus(	HttpServletRequest req, HttpServletResponse resp, ModelMap model)
 	{
-		model.addAttribute(getPages().getCONTEXT_PAGES(), getPages());
-		Character c = (Character) req.getSession().getAttribute(getPages().getCONTEXT_CHARACTER());
-
-		if(c==null){
-			model.addAttribute(getPages().getCONTEXT_ERROR(), "Character not found! Please re-login.");
-			return new ModelAndView( getPages().getRedirect(req,getPages().getPAGE_ROOT()),model );
+		Character c = null;
+		Object[] out = getPages().initController(c, model, req);
+		if(out[0] instanceof Character){
+			c = (Character) out[0];
+			model = (ModelMap)out[1];
+		}
+		else{
+			return (ModelAndView)out[0];
 		}
 		
 		model.addAttribute("up", (c.getDao().getAssign()>0) );
@@ -74,12 +76,14 @@ public class StatsController {
 
 			int type = GenericUtil.toInt( attType , -1);
 
-			model.addAttribute(getPages().getCONTEXT_PAGES(), getPages());
-			Character c = (Character) req.getSession().getAttribute(getPages().getCONTEXT_CHARACTER());
-
-			if(c==null){
-				model.addAttribute(getPages().getCONTEXT_ERROR(), "Character not found! Please re-login.");
-				return new ModelAndView( getPages().getRedirect(req,getPages().getPAGE_ROOT()),model );
+			Character c = null;
+			Object[] out = getPages().initController(c, model, req);
+			if(out[0] instanceof Character){
+				c = (Character) out[0];
+				model = (ModelMap)out[1];
+			}
+			else{
+				return (ModelAndView)out[0];
 			}
 
 			if( type == -1 ){

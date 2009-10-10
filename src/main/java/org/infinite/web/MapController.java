@@ -1,4 +1,4 @@
-package org.infinite.web.map;
+package org.infinite.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("/player/map.html")
@@ -62,12 +61,14 @@ public class MapController {
 			@RequestParam(value="m",required=false) String next,
 			HttpServletRequest req, HttpServletResponse resp,ModelMap model){
 
-		model.addAttribute(getPages().getCONTEXT_PAGES(), getPages());
-		Character c = (Character) req.getSession().getAttribute(getPages().getCONTEXT_CHARACTER());
-		
-		if(c==null){
-			model.addAttribute(getPages().getCONTEXT_ERROR(), "Character not found! Please re-login.");
-			return new ModelAndView( getPages().getRedirect(req,getPages().getPAGE_ROOT()),model );
+		Character c = null;
+		Object[] out = getPages().initController(c, model, req);
+		if(out[0] instanceof Character){
+			c = (Character) out[0];
+			model = (ModelMap)out[1];
+		}
+		else{
+			return (ModelAndView)out[0];
 		}
 		
 		model.addAttribute("map_width", Map.MAP_WIDTH);
@@ -81,21 +82,20 @@ public class MapController {
 		boolean moved = false;
 		AreaItem nextArea = null;
 		
-		Area a = getMapEngine().getAreaFromAreaItem( c.getAreaItem() );;
+		Area a = getMapEngine().getAreaFromAreaItem( c.getAreaItem() );
+		String error = null;
+		
 		if(next==null){
 			next = ""+ c.getAreaItem().getId();
-			//model.addAttribute(getPages().getCONTEXT_ERROR(), "Could not access this page directly, missing parameters!");
-//			return new ModelAndView(new RedirectView( req.getContextPath() + getPages().getPAGE_ROOT()+getPages().getPAGE_EXT() ));
 		}
 		else{
 
 			nextArea = getDaoManager().getAreaItem( GenericUtil.toInt(next, -1) );
 
-			if(c.getPointsAction() < nextArea.getCost()){
-				model.addAttribute(getPages().getCONTEXT_ERROR(), "You do not have enough Action Point to move to that Area!");
+			if(c.getPointsAction() < nextArea.getCost()){				
+				error = "You do not have enough Action Point to move to that Area!";
 			}
 			else{
-				
 				
 				try {
 					a = c.moveToAreaItem(nextArea,getMapEngine());
@@ -120,7 +120,7 @@ public class MapController {
 						break;
 					}
 					
-					model.addAttribute(getPages().getCONTEXT_ERROR(),"Failed to move to choosen area:"+msg);
+					error = "Failed to move to choosen area:"+msg;
 				}
 				
 			}
@@ -136,10 +136,14 @@ public class MapController {
 			if(nextArea.isDoublestep()){
 				req.getSession().setAttribute(FORWARD, "1");
 			}
-			return new ModelAndView( new RedirectView( req.getContextPath() + nextArea.getUrl() ));
+			return new ModelAndView( getPages().getRedirect(req,nextArea.getUrl(),error) );
 		}
-		else
+		else{
+			if(error!=null)
+				model.addAttribute(getPages().getCONTEXT_ERROR(),error);
 			return new ModelAndView(getPages().getPAGE_MAP(),model );
+		}
+			
 
 
 	}

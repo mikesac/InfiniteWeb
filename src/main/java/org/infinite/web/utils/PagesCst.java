@@ -2,6 +2,10 @@ package org.infinite.web.utils;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.infinite.objects.Character;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
 
@@ -29,21 +33,21 @@ public class PagesCst {
 	
 	//IMAGES
 	private final String IMG_ITEM_EXT= ".jpg";
-	private final String IMG_ITEM_PATH= STATIC_BASEPATH  + "/imgs/item/";
+	private final String IMG_ITEM_PATH= "../imgs/item/";
 	
 	private final String IMG_SPELL_EXT= ".jpg";
-	private final String IMG_SPELL_PATH= STATIC_BASEPATH  + "/imgs/spell/";
+	private final String IMG_SPELL_PATH= "../imgs/spell/";
 	
 	private final String IMG_MONST_EXT= ".jpg";
-	private final String IMG_MONST_PATH= STATIC_BASEPATH  + "/imgs/monster/";
+	private final String IMG_MONST_PATH= "../imgs/monster/";
 	
 	private final String IMG_NPC_EXT= ".jpg";
-	private final String IMG_NPC_PATH= STATIC_BASEPATH  + "/imgs/npc/";
+	private final String IMG_NPC_PATH= "../imgs/npc/";
 	
 	//model variables
 	private final String CONTEXT_PAGES = "pages";
 	private final String CONTEXT_CHARACTER = "character";
-	private final String CONTEXT_ERROR = "error";
+	public final static String CONTEXT_ERROR = "error";
 	private final String CONTEXT_MAP = "map";
 	private final String CONTEXT_MAPITEM = "map_item";
 	private final String CONTEXT_SPELLTYPE = "spell_type";
@@ -189,11 +193,37 @@ public class PagesCst {
 	
 	
 	public String getPageUrl(HttpServletRequest request, String page){
-		return request.getContextPath() + page + getPAGE_EXT();
+		return request.getContextPath() + page + (page.toLowerCase().indexOf(".html")!=-1?"":getPAGE_EXT() );
 	}
 	
-	public RedirectView getRedirect(HttpServletRequest request, String page){
-		return new RedirectView( getPageUrl(request, page) );
+	public View getRedirect(HttpServletRequest request, String page,String error){
+		if(error!=null){
+			request.getSession().setAttribute(getCONTEXT_ERROR(), error);
+		}
+			
+		return new RedirectView( getPageUrl(request, page));
+	}
+	
+	public Object[] initController(Character c, ModelMap model, HttpServletRequest req){
+		
+		Object[] out = new Object[2];
+		String error = (String) req.getSession().getAttribute( getCONTEXT_ERROR() );
+		
+		if(error!=null){
+			model.addAttribute(getCONTEXT_ERROR(), error);
+			req.getSession().removeAttribute(getCONTEXT_ERROR());
+			
+		}
+		model.addAttribute(getCONTEXT_PAGES(), this);
+		c = (Character) req.getSession().getAttribute(getCONTEXT_CHARACTER());
+		
+		if(c==null){
+			out[0]=new ModelAndView( getRedirect(req,getPAGE_ROOT(),"Character not found! Please re-login." ));
+			return out;
+		}
+		out[0] = c;
+		out[1] = model;
+		return out;
 	}
 	
 	

@@ -28,7 +28,7 @@
 				<td align="center" valign="middle">
 				<div class="equipped" id="handleft">
 				<#if left?exists>
-					<div onclick="unequip(${left.id})" class="iconlarge" style="background-image: url(${pages.IMG_ITEM_PATH}${left.image}${pages.IMG_ITEM_EXT});">
+					<div onclick="unequip(${left.id})" class="iconlarge" style="background-image: url(${pages.IMG_ITEM_PATH}${left.item.image}${pages.IMG_ITEM_EXT});">
 						<div class="tile"></div>
 					</div>
 				</#if>			
@@ -38,7 +38,7 @@
 				<td align="center" valign="middle">
 				<div class="equipped" id="handright">
 				<#if right?exists>
-					<div onclick="unequip(${right.id})" class="iconlarge" style="background-image: url(${pages.IMG_ITEM_PATH}${right.image}${pages.IMG_ITEM_EXT});">
+					<div onclick="unequip(${right.id})" class="iconlarge" style="background-image: url(${pages.IMG_ITEM_PATH}${right.item.image}${pages.IMG_ITEM_EXT});">
 						<div class="tile"/>
 					</div>
 				</#if>
@@ -50,7 +50,7 @@
 				<td align="center" valign="middle">
 				<div class="equipped" id="body">
 				<#if body?exists>
-					<div onclick="unequip(${body.id})" class="iconlarge" style="background-image: url(${pages.IMG_ITEM_PATH}${body.image}${pages.IMG_ITEM_EXT});">
+					<div onclick="unequip(${body.id})" class="iconlarge" style="background-image: url(${pages.IMG_ITEM_PATH}${body.item.image}${pages.IMG_ITEM_EXT});">
 						<div class="tile"/>
 					</div>
 				</#if>
@@ -117,7 +117,6 @@ function drop(id){
 function initGrid(){
 	jQuery("#pack").jqGrid({
 		 datatype: "local", 
-		 altRows:true,
 		 width:420,
 		 forceFit:true,
 		 hidegrid:false,

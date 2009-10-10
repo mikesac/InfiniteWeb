@@ -77,11 +77,7 @@
 									</tr>
 									<tr>
 										<td valign="bottom">
-										<form action="${rc.getContextPath()}${pages.PAGE_SPELL}${pages.PAGE_EXT}" method="POST">
-											<input type="hidden" name="spellid"	value="${ks.id}" /> 
-											<input type="hidden" name="mode" value="${equip}" />
-											<input type="submit" value="Prepare" class="buttonstyle" />
-										</form>
+											<button onclick="prepareSpell(${ks.id})">Prepare</button>
 										</td>
 									</tr>
 								</table>
@@ -121,7 +117,27 @@
 </div>
 </div>
 
+
+<form action="${rc.getContextPath()}${pages.PAGE_SPELL}${pages.PAGE_EXT}" method="POST" name="spellform">
+	<input type="hidden" name="spellid"	value="-1" /> 
+	<input type="hidden" name="mode" value="-1" />
+</form>
+
+
 <script type="text/javascript">
+
+	function prepareSpell(id){
+		document.forms['spellform'].elements['spellid'].value=id;
+		document.forms['spellform'].elements['mode'].value=${equip};
+		document.forms['spellform'].submit();
+	}
+	
+	function removespell(id){
+		document.forms['spellform'].elements['spellid'].value=id;
+		document.forms['spellform'].elements['mode'].value=${drop};
+		document.forms['spellform'].submit();
+	}
+
 	function goPage(id){
 		var url = "${rc.getContextPath()}${pages.PAGE_SPELL}${pages.PAGE_EXT}?${typename}="+id;
 		document.location=url;
@@ -144,7 +160,6 @@
 	function initGrid(){
 	jQuery("#spells").jqGrid({
 		 datatype: "local", 
-		 altRows:true,
 		 autowidth:true,
 		 forceFit:true,
 		 hidegrid:false,

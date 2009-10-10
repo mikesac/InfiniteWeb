@@ -87,9 +87,7 @@ public class StartPlaying {
 		} 
 		catch (Exception e) 
 		{
-			model.addAttribute(getPages().getCONTEXT_ERROR(), "Error loading character:"+e.getMessage());
-			e.printStackTrace();
-			return new ModelAndView( getPages().getRedirect(req,getPages().getPAGE_CHARACTER()));
+			return new ModelAndView( getPages().getRedirect(req,getPages().getPAGE_CHARACTER(),"Error loading character:"+e.getMessage()));
 
 		}		
 		Map m = new Map( getMapEngine().getAreaFromAreaItem( c.getAreaItem() ),c, getMapEngine());
@@ -100,7 +98,7 @@ public class StartPlaying {
 		req.getSession().setAttribute(getPages().getCONTEXT_CHARACTER(), c);
 		req.getSession().setAttribute(getPages().getCONTEXT_MAP(), m);
 		
-		return new ModelAndView( getPages().getRedirect(req,getPages().getPAGE_MAP() ),model);
+		return new ModelAndView( getPages().getRedirect(req,getPages().getPAGE_MAP() ,null));
 
 	}
 

@@ -41,7 +41,7 @@
 				<td>${character.pointsLifeMax - character.pointsLifeBase}</td>
 				<td>
 					<#if up >
-						<a href="javascript:doUpgrade(${PL})"><img border=0 src="../imgs/web/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
+						<a href="javascript:doUpgrade(${PL})"><img border=0 src="../imgs/web/stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
 					<#else>
 						&nbsp;
 					</#if>
@@ -57,7 +57,7 @@
 				<td>${character.strenght - character.dao.baseStr}</td>
 				<td> 
 					<#if up >
-						<a href="javascript:doUpgrade(${STR})"><img border=0 src="../imgs/web/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
+						<a href="javascript:doUpgrade(${STR})"><img border=0 src="../imgs/web/stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
 					<#else>
 						&nbsp;
 					</#if>
@@ -76,7 +76,7 @@
 				<td>${character.pointsMagicBase}</td>
 				<td>${character.pointsMagicMax - character.pointsMagicBase}</td>
 				<td> 
-					<#if up ><a href="javascript:doUpgrade(${PM})"><img border=0 src="../imgs/web/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
+					<#if up ><a href="javascript:doUpgrade(${PM})"><img border=0 src="../imgs/web/stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
 						<#else>
 						&nbsp;
 					</#if>
@@ -92,7 +92,7 @@
 				<td>${character.dao.baseInt}</td>
 				<td>${character.intelligence - character.dao.baseInt}</td>
 				<td> 
-					<#if up ><a href="javascript:doUpgrade(${INT})"><img border=0 src="../imgs/web/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
+					<#if up ><a href="javascript:doUpgrade(${INT})"><img border=0 src="../imgs/web/stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
 						<#else>
 						&nbsp;
 					</#if>
@@ -112,7 +112,7 @@
 				<td>${character.pointsActionBase}</td>
 				<td>${character.pointsActionMax - character.pointsActionBase}</td>
 				<td> 
-					<#if up ><a href="javascript:doUpgrade(${PA})"><img border=0 src="../imgs/web/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
+					<#if up ><a href="javascript:doUpgrade(${PA})"><img border=0 src="../imgs/web/stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
 						<#else>
 						&nbsp;
 					</#if>
@@ -128,7 +128,7 @@
 				<td>${character.dao.baseDex}</td>
 				<td>${character.dexterity - character.dao.baseDex}</td>
 				<td> 
-					<#if up ><a href="javascript:doUpgrade(${DEX})"><img border=0 src="../imgs/web/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
+					<#if up ><a href="javascript:doUpgrade(${DEX})"><img border=0 src="../imgs/web/stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
 						<#else>
 						&nbsp;
 					</#if>
@@ -148,7 +148,7 @@
 				<td>${character.pointsCharmBase}</td>
 				<td>${character.pointsCharmMax - character.pointsCharmBase}</td>
 				<td> 
-					<#if up ><a href="javascript:doUpgrade(${PC})"><img border=0 src="../imgs/web/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
+					<#if up ><a href="javascript:doUpgrade(${PC})"><img border=0 src="../imgs/web/stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
 						<#else>
 						&nbsp;
 					</#if>
@@ -164,7 +164,7 @@
 				<td>${character.dao.baseCha}</td>
 				<td>${character.charisma - character.dao.baseCha}</td>
 				<td> 
-					<#if up ><a href="javascript:doUpgrade(${CHA})"><img border=0 src="../imgs/web/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
+					<#if up ><a href="javascript:doUpgrade(${CHA})"><img border=0 src="../imgs/web/stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
 						<#else>
 						&nbsp;
 					</#if>

@@ -1,9 +1,9 @@
-<#if Request.error?exists >
+<#if error?exists && error!="">
 <div class="ui-widget" style="width:80%;margin-top:1%;">
 	<div class="ui-state-error ui-corner-all" style="padding: 0pt 0.3em;"> 
 		<p>
 			<span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span> 
-			<strong>Alert:</strong>${error}
+			<strong>Alert : </strong>${error}
 		</p>
 	</div>
 </div>
