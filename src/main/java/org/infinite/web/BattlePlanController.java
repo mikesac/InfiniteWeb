@@ -52,7 +52,7 @@ public class BattlePlanController {
 	
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView sacePlan(
+	public ModelAndView savePlan(
 			@RequestParam(value="serialized",required=true) String serializedPlan,
 			HttpServletRequest req, HttpServletResponse response,  ModelMap model){
 		

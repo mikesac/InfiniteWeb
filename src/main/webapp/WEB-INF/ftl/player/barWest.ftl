@@ -1,76 +1,78 @@
 <style type="text/css">
-	.ui-progressbar { position:relative; }
-	.pblabel { position: absolute; width: 100%; text-align: center; line-height: 1.9em; }
+	.ui-progressbar { position:relative;height:10px; }
+	.pblabel { position: absolute; width: 100%; text-align: center; font-size:8px;font-weight:bold; }
 	#bar_life .ui-widget-header{ background: #E44F57; }
 	#bar_mana .ui-widget-header{ background: #3F6DB5; }
 	#bar_action .ui-widget-header{ background:#E4B64F; }
 	#bar_charm .ui-widget-header{ background: #B345BA; }
+	#bar_xp .ui-widget-header{ background: #0486E6; }
 </style>
 
-<!-- c = Character.checkForRegeneration(c); -->
 
-<table  align="center" >
+<table style="margin-left:3px;">
 	<tr>
-		<td align="center" colspan="2">
-		
-		<div class="ui-dialog ui-widget ui-widget-content ui-corner-all" style="width:130px;">
-			<div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix" >
-				<span class="ui-dialog-title">${Session.character.name}</span>
-			</div>
-			<div class="ui-dialog-content ui-widget-content">
+		<td>
+			<div class="ui-corner-all" style="border:2px solid lightgray" >
 				<img alt="No Character" width="100" height="100" class="avatar"	src="${rc.getContextPath()}/imgs/player/${Session.character.pic}">
-				<span>Level ${Session.character.level}</span>
-			</div>
-		</div>
-	
-		</td>
-	</tr>
-
-	<tr>
-		<td align="right">
-			<img src="${rc.getContextPath()}/imgs/web/stats/ico/life.gif" alt="Life Points" title="Life Points">
-		</td>
-		<td>
-			<div id="bar_life">
-				<span class="pblabel">
-					${Session.character.pointsLife} / ${Session.character.pointsLifeMax}
-				</span>
 			</div>
 		</td>
-	</tr>
-	<tr>
-		<td align="right"><img src="${rc.getContextPath()}/imgs/web/stats/ico/mana.gif"
-			alt="Magic Points" title="Magic Points"></td>
 		<td>
-		<div id="bar_mana">
-				<span class="pblabel">
-					${Session.character.pointsMagic} / ${Session.character.pointsMagicMax}
-				</span>
-		</div>
+		
+			<table>
+				<tr>
+					<td>${Session.character.name}<br/>Level ${Session.character.level}</td>
+				</tr>
+				<tr>
+					<td>
+						<div id="bar_life">
+							<span class="pblabel">
+								${Session.character.pointsLife} / ${Session.character.pointsLifeMax}
+							</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div id="bar_mana">
+							<span class="pblabel">
+								${Session.character.pointsMagic} / ${Session.character.pointsMagicMax}
+							</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div id="bar_action">
+							<span class="pblabel">
+								${Session.character.pointsAction} / ${Session.character.pointsActionMax}
+							</span>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div id="bar_charm">
+							<span class="pblabel">
+								${Session.character.pointsCharm} / ${Session.character.pointsCharmMax}
+							</span>
+						</div>
+					</td>
+				</tr>
+				
+			</table>
+			
 		</td>
 	</tr>
 	<tr>
-		<td align="right"><img src="${rc.getContextPath()}/imgs/web/stats/ico/action.gif"
-			alt="Action Points" title="Action Points"></td>
-		<td>
-		<div id="bar_action">
+		<td colspan=2>
+			<div id="bar_xp">
 				<span class="pblabel">
-					${Session.character.pointsAction} / ${Session.character.pointsActionMax}
+					${curr_xp} / ${next_xp}
 				</span>
-		</div>
+			</div>
 		</td>
 	</tr>
-	<tr>
-		<td align="right"><img src="${rc.getContextPath()}/imgs/web/stats/ico/charm.gif"
-			alt="Charm Points" title="Charm Points"></td>
-		<td>
-		<div id="bar_charm"><div id="bar_action">
-				<span class="pblabel">
-					${Session.character.pointsCharm} / ${Session.character.pointsCharmMax}
-				</span>
-		</div>
-		</td>
-	</tr>
+</table>
 
 <#if Session.character.nexRegenereationTime?int!=0 >
 	 
@@ -78,46 +80,91 @@
 	 ${Session.character.nexRegenereationTime?string("0")}
 	 </span></td></tr> 
 	 </#if>
+	 
+<center>
+
+<table>
+	<tr>
+		<td class="ui-state-default ui-corner-all" width="50%" valign="middle" align="center">
+			<a href="${rc.getContextPath()}${pages.PAGE_MAP}${pages.PAGE_EXT}" >
+				<img height="50px" src="../imgs/web/admin/maps.gif" alt="Map" title="Map" border="0">
+			</a>
+		</td>
+		<td class="ui-state-default ui-corner-all" valign="middle" align="center">
+			<a href="${rc.getContextPath()}${pages.PAGE_EQUIP}${pages.PAGE_EXT}" >
+				<img height="50px" src="../imgs/web/admin/equip.gif" alt="Equipment" title="Equipment" border="0">
+			</a>
+		</td>
+	</tr>
+	<tr>
+		<td class="ui-state-default ui-corner-all"  valign="middle" align="center">
+			<a href="${rc.getContextPath()}${pages.PAGE_SPELL}${pages.PAGE_EXT}" >
+				<img height="50px" src="../imgs/web/admin/spells.gif" alt="Spell Book" title="Spell Book" border="0">
+			</a>
+		</td>
+		<td class="ui-state-default ui-corner-all" valign="middle" align="center" >
+			<a href="${rc.getContextPath()}${pages.PAGE_BATTLEPLAN}${pages.PAGE_EXT}" >
+				<img height="50px" src="../imgs/web/admin/battle.gif" alt="Battle Strategy" title="Battle Strategy" border="0">
+			</a>
+		</td>
+	</tr>
+	<tr>
+		<td class="ui-state-default ui-corner-all" valign="middle" align="center" >
+			<a href="${rc.getContextPath()}${pages.PAGE_STATUS}${pages.PAGE_EXT}" >
+				<img height="50px" src="../imgs/web/admin/stats.gif" alt="Status" title="Status" border="0">
+			</a>
+		</td>
+		<td class="ui-state-default ui-corner-all" valign="middle" align="center" >
+			<a href="javascript:alert('TODO')" >
+				<img height="50px" src="../imgs/web/admin/quests.gif" alt="Quests" title="Quests" border="0">
+			</a>
+		</td>
+	</tr>
+	<tr>
+		<td class="ui-state-default ui-corner-all" valign="middle" align="center" >
+			<a href="javascript:alert('TODO')" >
+				<img height="50px" src="../imgs/web/admin/messages.gif" alt="Messages" title="Messages" border="0">
+			</a>
+		</td>
+		<td></td>
+	</tr>
+</table>
+
+</center>
+
+
+<table  align="center" >
+	
+
+
 
 	<tr>
 		<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/str.gif" alt="Strenght" title="Strenght"></td>
-		<td><input type="text" size="10" readonly="readonly" value="${Session.character.strenght}"
+		<td><input type="text" size="2" readonly="readonly" value="${Session.character.strenght}"
 			style="text-align: right;" /></td>
-	</tr>
-
-	<tr>
+	
 		<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/int.gif" alt="Intelligence" title="Intelligence"></td>
-		<td><input type="text" size="10" readonly="readonly" value="${Session.character.intelligence}"
+		<td><input type="text" size="2" readonly="readonly" value="${Session.character.intelligence}"
 			style="text-align: right;" /></td>
 	</tr>
 
 	<tr>
 		<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/dex.gif" alt="Dexterity" title="Dexterity"></td>
-		<td><input type="text" size="10" readonly="readonly" value="${Session.character.dexterity}"
+		<td><input type="text" size="2" readonly="readonly" value="${Session.character.dexterity}"
 			style="text-align: right;" /></td>
-	</tr>
-
-	<tr>
+	
 		<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/cha.gif" alt="Charisma" title="Charisma"></td>
-		<td><input type="text" size="10" readonly="readonly" value="${Session.character.charisma}"
+		<td><input type="text" size="2" readonly="readonly" value="${Session.character.charisma}"
 			style="text-align: right;" /></td>
 	</tr>
 	
 	<tr>
 		<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/ac.gif" alt="Armor Class" title="Armor Class"></td>
-		<td><input type="text" size="10" readonly="readonly" value="${Session.character.totalCA}"
+		<td><input type="text" size="2" readonly="readonly" value="${Session.character.totalCA}"
 			style="text-align: right;" /></td>
-	</tr>
-	<tr>
-		<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/px.gif" alt="Experience" title="Experience"></td>
-		<td><input type="text" size="10" readonly="readonly" value="${Session.character.experience}"
-			style="text-align: right;" /></td>
-	</tr>
-	<tr>
-		<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/gold.gif"
-			alt="Gold" title="Gold"></td>
-		<td><input type="text" size="10" readonly="readonly" value="${Session.character.gold}"
-			style="text-align: right;" /></td>
+	
+		<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/gold.gif" alt="Gold" title="Gold"></td>
+		<td><input type="text" size="2" readonly="readonly" value="${Session.character.gold}" style="text-align: right;" /></td>
 	</tr>
 
 </table>
@@ -128,6 +175,7 @@ $("#bar_life").progressbar({	value: ${ ((100 * Session.character.pointsLife ) / 
 $("#bar_mana").progressbar({	value: ${ ((100 * Session.character.pointsMagic ) / Session.character.pointsMagicMax )?int} });
 $("#bar_action").progressbar({	value: ${ ((100 * Session.character.pointsAction?float ) / Session.character.pointsActionMax )?int} });
 $("#bar_charm").progressbar({	value: ${ ((100 * Session.character.pointsCharm ) / Session.character.pointsCharmMax )?int} });
+$("#bar_xp").progressbar({	value: ${ (100 * curr_xp / next_xp)?int} });
 
 
 

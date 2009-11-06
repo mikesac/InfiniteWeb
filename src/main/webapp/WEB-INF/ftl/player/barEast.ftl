@@ -6,7 +6,7 @@
 			<tr>
 				<td>
 					<a href="${rc.getContextPath()}${pages.PAGE_MAP}${pages.PAGE_EXT}" >
-						<img width="80px" src="${rc.getContextPath()}/imgs/web/menu/map.gif" alt="Map" title="Map" border="0">
+						<img width="80px" src="${rc.getContextPath()}/imgs/web/admin/maps.gif" alt="Map" title="Map" border="0">
 					</a>
 				</td>
 				<td>
@@ -19,7 +19,7 @@
 			<tr>
 				<td>
 					<a href="${rc.getContextPath()}${pages.PAGE_SPELL}${pages.PAGE_EXT}" >
-						<img width="80px" src="${rc.getContextPath()}/imgs/web/menu/book.gif" alt="Spell Book" title="Spell Book" border="0">
+						<img width="80px" src="${rc.getContextPath()}/imgs/web/admin/spells.gif" alt="Spell Book" title="Spell Book" border="0">
 					</a>
 				</td>
 				<td>
@@ -38,7 +38,7 @@
 				</td>
 				<td>
 					<a href="javascript:alert('TODO')" >
-						<img width="80px" src="${rc.getContextPath()}/imgs/web/menu/quest.gif" alt="Quests" title="Quests" border="0">
+						<img width="80px" src="${rc.getContextPath()}/imgs/web/admin/quests.gif" alt="Quests" title="Quests" border="0">
 					</a>
 				</td>
 				

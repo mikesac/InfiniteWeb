@@ -139,7 +139,7 @@
 	}
 
 	function goPage(id){
-		var url = "${rc.getContextPath()}${pages.PAGE_SPELL}${pages.PAGE_EXT}?${typename}="+id;
+		var url = "${rc.getContextPath()+pages.PAGE_SPELL+pages.PAGE_EXT}?${typename}="+id;
 		document.location=url;
 	}
 
@@ -147,7 +147,7 @@
 	
 		$.ajax({
 			type: 'get',
-			url: "${rc.getContextPath()}${pages.PAGE_SPELLBOOK}.json",
+			url: "${rc.getContextPath()+pages.PAGE_SPELLBOOK}.json",
 		  	cache: false,
 		  	data: ({spellid : id}),		  
 		  	success: function(html){

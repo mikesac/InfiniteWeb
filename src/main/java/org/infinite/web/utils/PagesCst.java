@@ -2,6 +2,7 @@ package org.infinite.web.utils;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.infinite.engines.AI.AiEngine;
 import org.infinite.objects.Character;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,9 +41,11 @@ public class PagesCst {
 	
 	private final String IMG_MONST_EXT= ".jpg";
 	private final String IMG_MONST_PATH= "../imgs/monster/";
+	private final String IMG_MONST_PATH_BIG= "../imgs/monster/big/";
 	
 	private final String IMG_NPC_EXT= ".jpg";
 	private final String IMG_NPC_PATH= "../imgs/npc/";
+	private final String IMG_NPC_PATH_BIG= "../imgs/npc/big/";
 	
 	//model variables
 	private final String CONTEXT_PAGES = "pages";
@@ -59,7 +62,7 @@ public class PagesCst {
 	private final String CONTEXT_FIGHT_REPORT_S1 = "fight_report_s1";
 	private final String CONTEXT_FIGHT_REPORT_S2= "fight_report_s2";
 
-	private final String ADMIN_HOME = "/admin/adminHome";
+	private final String ADMIN_HOME = "/admin/home";
 	private final String ADMIN_MAPPREVIEW = "/admin/map/mapUtilPreview";
 	
 	private final String ADMIN_MAPUTIL = 	"/admin/map/mapUtil";
@@ -219,11 +222,20 @@ public class PagesCst {
 		
 		if(c==null){
 			out[0]=new ModelAndView( getRedirect(req,getPAGE_ROOT(),"Character not found! Please re-login." ));
-			return out;
 		}
-		out[0] = c;
-		out[1] = model;
+		else{
+			model.addAttribute("curr_xp", c.getExperience() ) ;
+			model.addAttribute("next_xp", AiEngine.getLevelPx( c.getLevel()+1 ) );
+			out[0] = c;
+			out[1] = model;
+		}		
 		return out;
+	}
+	public String getIMG_MONST_PATH_BIG() {
+		return IMG_MONST_PATH_BIG;
+	}
+	public String getIMG_NPC_PATH_BIG() {
+		return IMG_NPC_PATH_BIG;
 	}
 	
 	

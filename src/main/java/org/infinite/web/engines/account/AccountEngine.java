@@ -2,25 +2,31 @@ package org.infinite.web.engines.account;
 
 import java.util.List;
 
-import org.infinite.db.Manager;
+import org.infinite.db.dao.DaoManager;
 import org.infinite.db.dto.TomcatRoles;
 import org.infinite.db.dto.TomcatUsers;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.octo.captcha.service.CaptchaServiceException;
 
 public class AccountEngine {
 
-	public static void registerNewUser(String user,String pass,String email,String captchaId,String captchaResponse) throws Exception{
+	@Autowired
+	private DaoManager daoManager;
+	
+	public void setDaoManager(DaoManager dao) {this.daoManager = dao;}
+	public DaoManager getDaoManager() { return daoManager; }
+	
+	public void registerNewUser(String user,String pass,String email,String captchaId,String captchaResponse) throws Exception{
 		registerNewUser(user, pass, email, captchaId, captchaResponse,true);
 	}
 	
-	public static void registerNewUser(String user,String pass,String email) throws Exception{
+	public void registerNewUser(String user,String pass,String email) throws Exception{
 		registerNewUser(user, pass, email, "", "",false);
 	}
 	
 	//captcha must be disable for testUnit
-	@SuppressWarnings("unchecked")
-	protected static void registerNewUser(String user,String pass,String email,String captchaId,String captchaResponse,boolean useCaptcha) throws Exception{
+	private void registerNewUser(String user,String pass,String email,String captchaId,String captchaResponse,boolean useCaptcha) throws Exception{
 
 		if(useCaptcha && !validateCaptchaForId(captchaId,captchaResponse))
 		{
@@ -40,10 +46,10 @@ public class AccountEngine {
 			throw new Exception("Invalid email");
 		}
 
-		List<TomcatUsers> l = Manager.listByQuery("select u from TomcatUsers u where u.user='"+user+"' or u.email='"+email+"'");
+		List<TomcatUsers> l = getDaoManager().findTomcatUsers(user, email);
 
 		if(l==null){
-			throw new Exception("Error connecting to database, prease try again or contact support");
+			throw new Exception("Error retrieving users data, prease try again or contact support");
 		}
 		
 		if(l.size()!=0){
@@ -52,8 +58,8 @@ public class AccountEngine {
 
 		TomcatUsers u = new TomcatUsers(user,pass,email);
 		TomcatRoles r = new TomcatRoles(u,"player");
-		Manager.create(u);
-		Manager.create(r);	
+		getDaoManager().create(u);
+		getDaoManager().create(r);	
 
 	}
 

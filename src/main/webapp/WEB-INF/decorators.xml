@@ -4,6 +4,7 @@
 	<decorator name="header" page="headerLayout.dec">
 		<pattern>*character*</pattern>
 		<pattern>*/login/*</pattern>
+		<pattern>*/admin/*</pattern>
 		<pattern>/index.*</pattern>
 	</decorator>
 	
