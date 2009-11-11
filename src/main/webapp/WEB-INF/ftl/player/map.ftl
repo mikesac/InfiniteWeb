@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Choose Your Character</title>
+<title>Map</title>
 </head>
 <body>
 

@@ -13,7 +13,7 @@
 			<@panel title="Manage Map" icon="person" url="${base + pages.ADMIN_MAP + pages.PAGE_EXT}" img="../imgs/web/admin/maps.gif" alt="Maps" width="200px" height="120px" img_w=100 img_h=100 />
 		</td>
 		<td>
-			<@panel title="Manage Map Areas" icon="person" url="${base + pages.ADMIN_AREAITEMS + pages.PAGE_EXT}?areaid=0" img="../imgs/web/admin/areas.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
+			<@panel title="Manage Map Areas" icon="person" url="${base + pages.ADMIN_AREAITEMS + pages.PAGE_EXT}?areaid=1" img="../imgs/web/admin/areas.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
 		</td>
 		<td>
 			<@panel title="Manage Items" icon="person" url="" img="../imgs/web/admin/items.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />

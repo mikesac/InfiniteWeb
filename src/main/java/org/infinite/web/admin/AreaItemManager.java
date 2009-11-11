@@ -59,8 +59,9 @@ public class AreaItemManager{
 		
 		Map m = new Map(a,null,getMapEngine());
 		model.addAttribute("mapbackground", m.getMapBackground());
-		model.addAttribute("areaitems",getDaoManager().getAreaItemsIcons());
+		model.addAttribute("icons",getDaoManager().getAreaItemsIcons());
 		model.addAttribute("allareas",getDaoManager().listAllArea());
+		model.addAttribute("map",m);
 			
 		model.addAttribute(getPages().getCONTEXT_PAGES(), getPages());
 		model.addAttribute("base", request.getContextPath());
