@@ -5,6 +5,8 @@
 
 
 	<bean id="pages" class="org.infinite.web.utils.PagesCst" />
+	
+	<bean id="accountEngine" class="org.infinite.web.engines.account.AccountEngine" />
 
 
 	<!-- all controllers are identified by @Controller annotation into given package. -->

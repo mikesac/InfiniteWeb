@@ -51,7 +51,7 @@
 		<realm-name>Restricted Area</realm-name>
 		<form-login-config>
 			<form-login-page>/login/login.html</form-login-page>
-			<form-error-page>/index.jsp</form-error-page>
+			<form-error-page>/index.html</form-error-page>
 		</form-login-config>
 	</login-config>
 
@@ -134,7 +134,17 @@
 	</listener>
 
 
+	<!--  CAPTCHA -->
+	<servlet>
+		<servlet-name>jcaptcha</servlet-name>
+		<servlet-class>org.infinite.web.engines.account.ImageCaptchaServlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
 
+	<servlet-mapping>
+		<servlet-name>jcaptcha</servlet-name>
+		<url-pattern>/jcaptcha</url-pattern>
+	</servlet-mapping>
 
 
 </web-app>

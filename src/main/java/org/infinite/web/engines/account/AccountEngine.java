@@ -26,7 +26,7 @@ public class AccountEngine {
 	}
 	
 	//captcha must be disable for testUnit
-	private void registerNewUser(String user,String pass,String email,String captchaId,String captchaResponse,boolean useCaptcha) throws Exception{
+	public void registerNewUser(String user,String pass,String email,String captchaId,String captchaResponse,boolean useCaptcha) throws Exception{
 
 		if(useCaptcha && !validateCaptchaForId(captchaId,captchaResponse))
 		{

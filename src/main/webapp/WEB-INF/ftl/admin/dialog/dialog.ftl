@@ -1,113 +1,85 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<#include "../../common/macro.ftl" >
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-
-<script type="text/javascript" src="js/jquery/js/jquery-1.3.2.min.js"></script>
-<script type="text/javascript" src="js/jquery/tree/jquery.tree.min.js"></script>
-<link rel="stylesheet" type="text/css" href="js/jquery/css/custom-theme/jquery-ui-1.7.2.custom.css" />
-<link rel="stylesheet" type="text/css" href="js/jquery/tree/themes/default/style.css" />
-
+	<title>Dialog Editor</title>
 </head>
-<body class="ui-widget">
+<body>
+<script type="text/javascript" src="${base}/js/jquery/tree/jquery.tree.min.js"></script>
+<link rel="stylesheet" type="text/css" href="${base}/js/jquery/tree/themes/default/style.css" />
 
-<div class="ui-layout-center ui-widget-content 	ui-corner-all">
-<center>
+
 
 <table width="99%">
 	<tr>
-		<td width="50%">
-			<div class="ui-dialog ui-widget ui-widget-content ui-corner-all" style="width:400px;height:500px">
-				<div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-					<span id="ui-dialog-title-dialog" class="ui-dialog-title">Dialog Structure</span>
-					<span class="ui-dialog-titlebar-close ui-corner-all"><span class="ui-icon ui-icon-person">person</span></span>
-				</div>
-				<div class="ui-dialog-content ui-widget-content" >
+		<td width="50%" valign="top">
+			<@nestedpanel icon="person" title="Dialog Structure" width=400 height=450>
 				<div id="mytree"></div>
-				</div>
-			</div>
+			</@nestedpanel>
+			<textarea id="json_txt" cols="40"></textarea>
+			<button onclick="getJSON()">test</button>
 		</td>
 		<td width="50%">
-
-			<div class="ui-dialog ui-widget ui-widget-content ui-corner-all" style="width:400px">
-				<div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-					<span id="ui-dialog-title-dialog" class="ui-dialog-title">Add Npc sentence</span>
-					<span class="ui-dialog-titlebar-close ui-corner-all"><span class="ui-icon ui-icon-person">person</span></span>
-				</div>
-				<div class="ui-dialog-content ui-widget-content" >		
-					<form name="npcdialog">
-						<table>
-							<tr>
-								<td>Id</td>
-								<td>
-									<input type="text" value="" name="npc_id" size="3" readonly="readonly" onchange="checkIdQuest(this)">
-								</td>
-							</tr>
-							<tr>
-								<td>Sentence</td>
-								<td><textarea name="npc_sentence"></textarea></td>
-							</tr>
-						</table>
-					</form>
-					<button onclick="addNpcDialog()">Append new</button>
-					<button onclick="editNpcDialog()" disabled="disabled" id="editQ">Edit Current</button>
-				</div>
-			</div>
+			<@nestedpanel icon="person" title="Add Npc sentence" width=450 height=150>
+				<form name="npcdialog">
+					<table>
+						<tr>
+							<td>Id</td>
+							<td>
+								<input type="text" value="" name="npc_id" size="3" readonly="readonly" onchange="checkIdQuest(this)">
+							</td>
+						</tr>
+						<tr>
+							<td>Sentence</td>
+							<td><textarea name="npc_sentence"></textarea></td>
+						</tr>
+					</table>
+				</form>
+				<button onclick="addNpcDialog()">Append new</button>
+				<button onclick="editNpcDialog()" disabled="disabled" id="editQ">Edit Current</button>
+			</@nestedpanel>
 			
-			<div class="ui-dialog ui-widget ui-widget-content ui-corner-all" style="width:400px">
-				<div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-					<span id="ui-dialog-title-dialog" class="ui-dialog-title">Add Player answer</span>
-					<span class="ui-dialog-titlebar-close ui-corner-all"><span class="ui-icon ui-icon-person">person</span></span>
-				</div>
-				<div class="ui-dialog-content ui-widget-content" >		
-					<form name="pc_answer">
-						<table>
-							<tr>
-								<td>Id</td><td><input type="text" value="" name="answ_id" readonly="readonly" size="3"  onchange="checkIdAnsw(this)"></td>							
-							</tr>
-							<tr>								
-								<td>Answer</td><td><textarea name="answ_answer"></textarea></td>							
-							</tr>
-							<tr>								
-								<td>Required Level</td><td><input type="text"  value="0" name="answ_reqLevel" size="3"></td>							
-							</tr>
-							<tr>								
-								<td>Required Quest</td><td><input type="text" value="0" name="answ_reqQuest" size="3"></td>							
-							</tr>
-							<tr>								
-								<td nowrap="nowrap">Required Quest Status</td>
-								<td>
-									<select name="answ_reqQuestStatus">
-										<option value = "0" selected="selected">UNASSIGNED</option>
-										<option value = "1" >PENDING</option>
-										<option value = "2" >EXECUTED</option>
-										<option value = "3" >COMPLETED</option>
-										<option value = "4" >ABORTED</option>
-									</select>
-								</td>							
-							</tr>
-							<tr>							
-								<td>Next Dialog</td><td><select name="answ_dialogId" id="answ_dialogId"></select></td>							
-							</tr>
-							<tr>
-								<td>Redirect Url</td><td><input type="text" value="" name="answ_redirectUrl"></td>							
-							</tr>
-						</table>
-					</form>		
-					<button onclick="addPcAnswer()">Append New</button>
-					<button onclick="editPcAnswer()" disabled="disabled" id="editA">Edit Current</button>
-				</div>
-			</div>
+			<@nestedpanel icon="person" title="Add Player answer" width=450 height=300>	
+				<form name="pc_answer">
+					<table>
+						<tr>
+							<td>Id</td><td><input type="text" value="" name="answ_id" readonly="readonly" size="3"  onchange="checkIdAnsw(this)"></td>							
+						</tr>
+						<tr>								
+							<td>Answer</td><td><textarea name="answ_answer"></textarea></td>							
+						</tr>
+						<tr>								
+							<td>Required Level</td><td><input type="text"  value="0" name="answ_reqLevel" size="3"></td>							
+						</tr>
+						<tr>								
+							<td>Required Quest</td><td><input type="text" value="0" name="answ_reqQuest" size="3"></td>							
+						</tr>
+						<tr>								
+							<td nowrap="nowrap">Required Quest Status</td>
+							<td>
+								<select name="answ_reqQuestStatus">
+									<option value = "0" selected="selected">UNASSIGNED</option>
+									<option value = "1" >PENDING</option>
+									<option value = "2" >EXECUTED</option>
+									<option value = "3" >COMPLETED</option>
+									<option value = "4" >ABORTED</option>
+								</select>
+							</td>							
+						</tr>
+						<tr>							
+							<td>Next Dialog</td><td><select name="answ_dialogId" id="answ_dialogId"></select></td>							
+						</tr>
+						<tr>
+							<td>Redirect Url</td><td><input type="text" value="" name="answ_redirectUrl"></td>							
+						</tr>
+					</table>
+				</form>		
+				<button onclick="addPcAnswer()">Append New</button>
+				<button onclick="editPcAnswer()" disabled="disabled" id="editA">Edit Current</button>
+			</@nestedpanel>
 
-		<textarea id="json_txt"></textarea></td>
+		</td>
 	</tr>
 </table>
-
-<button onclick="getJSON()">test</button>
-
-</center>
-</div>
 
 <script>
 

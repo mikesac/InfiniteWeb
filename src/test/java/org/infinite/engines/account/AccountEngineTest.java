@@ -4,12 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import java.util.List;
-
-import org.infinite.db.Manager;
+import org.infinite.db.dao.DaoManager;
 import org.infinite.db.dto.TomcatUsers;
+import org.infinite.util.TestUtil;
 import org.infinite.web.engines.account.AccountEngine;
+import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
 
 public class AccountEngineTest {
 
@@ -18,20 +19,29 @@ public class AccountEngineTest {
 	String EMAIL = "test@test.org";
 	String ROLE = "player";
 	
-	@SuppressWarnings("unchecked")
+	private AccountEngine accountEngine;
+	private DaoManager daoManager;
+	
+	@Before
+	public void setUp() throws Exception {
+		XmlBeanFactory factory = TestUtil.getBeanFactory();
+		accountEngine= (AccountEngine) factory.getBean("AccountEngine");
+		daoManager= (DaoManager) factory.getBean("DaoManager");
+	}
+	
+	
 	@Test
 	public void testRegisterNewUserStringStringStringStringStringBoolean() {
 		
 		
 		try {
-			AccountEngine.registerNewUser(USER, PASS, EMAIL, "", "",false);
+			accountEngine.registerNewUser(USER, PASS, EMAIL, "", "",false);
 			
-			List<TomcatUsers> l = Manager.listByQuery("select u from TomcatUsers u where u.user='"+USER+"'");
+			TomcatUsers l = daoManager.getTomcatUsers(USER);
 			
 			assertNotNull(l);
-			assertEquals(l.size(), 1);
 			
-			TomcatUsers t = l.get(0);
+			TomcatUsers t = l;
 			assertNotNull(t);
 			
 			assertEquals(t.getUser(), USER);
@@ -41,7 +51,7 @@ public class AccountEngineTest {
 			assertEquals(t.getTomcatRoles().getUser(), USER);
 			assertEquals(t.getTomcatRoles().getRole(), ROLE);
 			
-			Manager.delete(t);
+			daoManager.delete(t);
 			
 		} catch (Exception e) {
 			fail( e.getMessage() );

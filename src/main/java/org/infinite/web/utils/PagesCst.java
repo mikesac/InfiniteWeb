@@ -47,6 +47,12 @@ public class PagesCst {
 	private final String IMG_NPC_PATH= "../imgs/npc/";
 	private final String IMG_NPC_PATH_BIG= "../imgs/npc/big/";
 	
+	private final String IMG_MAP_EXT= ".jpg";
+	private final String IMG_MAP_PATH= "/imgs/maps/";
+	private final String IMG_MAP_PATH_TMP= "/imgs/maps/tmp/";
+	
+	
+	
 	//model variables
 	private final String CONTEXT_PAGES = "pages";
 	private final String CONTEXT_CHARACTER = "character";
@@ -62,12 +68,12 @@ public class PagesCst {
 	private final String CONTEXT_FIGHT_REPORT_S1 = "fight_report_s1";
 	private final String CONTEXT_FIGHT_REPORT_S2= "fight_report_s2";
 
-	private final String ADMIN_HOME = "/admin/home";
-	private final String ADMIN_MAPPREVIEW = "/admin/map/mapUtilPreview";
-	
-	private final String ADMIN_MAPUTIL = 	"/admin/map/mapUtil";
-	private final String ADMIN_MAPLIST = 	"/admin/map/listArea";
-	private final String ADMIN_MAPITEMS = "/admin/map/mapItems";
+	private final String ADMIN_HOME 		= "/admin/home";
+	private final String ADMIN_DIALOG 		= "/admin/dialog/dialog";
+	private final String ADMIN_MAP 			= "/admin/map/maps";
+	private final String ADMIN_MAPPREVIEW 	= "/admin/map/mapPreview";
+	private final String ADMIN_MAPLIST 		= "/admin/map/listArea";
+	private final String ADMIN_AREAITEMS 	= "/admin/area/areaItem";
 	
 	
 	public String getPAGE_START() {
@@ -181,14 +187,12 @@ public class PagesCst {
 	public String getADMIN_MAPPREVIEW() {
 		return ADMIN_MAPPREVIEW;
 	}
-	public String getADMIN_MAPUTIL() {
-		return ADMIN_MAPUTIL;
-	}
+	
 	public String getADMIN_MAPLIST() {
 		return ADMIN_MAPLIST;
 	}
-	public String getADMIN_MAPITEMS() {
-		return ADMIN_MAPITEMS;
+	public String getADMIN_AREAITEMS() {
+		return ADMIN_AREAITEMS;
 	}
 	public String getCONTEXT_PAGES() {
 		return CONTEXT_PAGES;
@@ -236,6 +240,21 @@ public class PagesCst {
 	}
 	public String getIMG_NPC_PATH_BIG() {
 		return IMG_NPC_PATH_BIG;
+	}
+	public String getADMIN_MAP() {
+		return ADMIN_MAP;
+	}
+	public String getIMG_MAP_EXT() {
+		return IMG_MAP_EXT;
+	}
+	public String getIMG_MAP_PATH() {
+		return IMG_MAP_PATH;
+	}
+	public String getIMG_MAP_PATH_TMP() {
+		return IMG_MAP_PATH_TMP;
+	}
+	public String getADMIN_DIALOG() {
+		return ADMIN_DIALOG;
 	}
 	
 	

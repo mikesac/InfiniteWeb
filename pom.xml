@@ -34,9 +34,15 @@
 			<version>2.4</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>com.octo.captcha</groupId>
+			<artifactId>jcaptcha-all</artifactId>
+			<version>1.0-RC4</version>
+		</dependency>
+
 	</dependencies>
-	<description>Administration section to create worlds
-plus basic game UI</description>
+	<description>Administration section to create worlds plus basic game UI</description>
 	<parent>
 		<artifactId>InfiniteBase</artifactId>
 		<groupId>org.infiniteworld</groupId>

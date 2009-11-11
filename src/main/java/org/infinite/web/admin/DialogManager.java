@@ -14,34 +14,36 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping({"/admin/home.html"})
-
-public class AdminInit {
+@RequestMapping("/admin/dialog/dialog.html")
+public class DialogManager {
 
 	@Autowired
 	private	PagesCst pages;
-	
+
 	@Autowired
 	private DaoManager daoManager;
-	
+
 	public void setPages(PagesCst pages) {this.pages = pages;}
 	public PagesCst getPages() {return pages;}
 
 	public void setDaoManager(DaoManager dao) {this.daoManager = dao;}
 	public DaoManager getDaoManager() { return daoManager; }
-	
+
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView initAdminHome(HttpServletRequest request, HttpServletResponse response,  ModelMap model) 
+	public ModelAndView initDIalog(HttpServletRequest request, HttpServletResponse resp, ModelMap model)
 	{
 		String userName = request.getUserPrincipal().getName();		
 		TomcatRoles role = getDaoManager().getUserRole(userName);		
 		if(role==null || !role.getRole().equalsIgnoreCase("manager")){
 			return new ModelAndView( getPages().getRedirect(request,getPages().getPAGE_ROOT(),"You cannot access this area!") );
 		}
-		
+
 		model.addAttribute(getPages().getCONTEXT_PAGES(), getPages());
 		model.addAttribute("base", request.getContextPath());
 
-		return new ModelAndView( getPages().getADMIN_HOME(),model );
+		return new ModelAndView( getPages().getADMIN_DIALOG(),model );
 	}
+
+
+
 }
