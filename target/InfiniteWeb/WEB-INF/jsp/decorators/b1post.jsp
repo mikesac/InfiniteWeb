@@ -1,1 +1,0 @@
-</td><td id="side-e"></td></tr><tr><td id="side-sw"></td><td id="side-s"></td><td id="side-se"></td></tr></table>

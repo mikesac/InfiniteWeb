@@ -1,1 +1,0 @@
-<table cellpadding="0" cellspacing="0" border="0" width="100%"><tr><td id="side2-nw"></td><td id="side2-n"></td><td id="side2-ne"></td></tr><tr><td id="side2-w"></td><td id="side2">
