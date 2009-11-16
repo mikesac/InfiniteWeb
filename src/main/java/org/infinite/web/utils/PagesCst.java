@@ -74,7 +74,7 @@ public class PagesCst {
 	private final String ADMIN_MAPPREVIEW 	= "/admin/map/mapPreview";
 	private final String ADMIN_MAPLIST 		= "/admin/map/listArea";
 	private final String ADMIN_AREAITEMS 	= "/admin/area/areaItem";
-	
+	private final String ADMIN_JSONAREAITEMS 	= "/admin/area/jsonAreaItem";
 	
 	public String getPAGE_START() {
 		return PAGE_START;
@@ -255,6 +255,9 @@ public class PagesCst {
 	}
 	public String getADMIN_DIALOG() {
 		return ADMIN_DIALOG;
+	}
+	public String getADMIN_JSONAREAITEMS() {
+		return ADMIN_JSONAREAITEMS;
 	}
 	
 	

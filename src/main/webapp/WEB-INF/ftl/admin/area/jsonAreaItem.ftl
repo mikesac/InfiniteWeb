@@ -1,0 +1,19 @@
+{
+	"act":1,
+	"id":"${area.id}",
+	"name":"${area.name}",
+	"icon":"${area.icon}",
+	"cost":${area.cost},
+	"areaid":${area.areaid},
+	"areax":${area.areax},
+	"areay":${area.areay},
+	"x":${area.x},
+	"y":${area.y},
+	"arealock":"${area.arealock}",
+	"questlock":"${area.questlock}",
+	"url":"${area.url}",
+	"loop":${area.doublestep?string},
+	"hide":${area.hidemode?string},
+	"areaItemLevel":${area.level},
+	"npcs":"${area.npcs}"
+}

@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/admin/area/areaItem.html")
 public class AreaItemManager{
 
 	@Autowired
@@ -43,7 +42,8 @@ public class AreaItemManager{
 	public DaoManager getDaoManager() { return daoManager; }
 
 	
-	@RequestMapping(method = RequestMethod.GET)
+	
+	@RequestMapping(value="/admin/area/areaItem.html",method = RequestMethod.GET)
 	public ModelAndView initArea(
 			HttpServletRequest request, HttpServletResponse resp, ModelMap model,
 			@RequestParam(value="areaid",required=true) int areaId
@@ -54,31 +54,37 @@ public class AreaItemManager{
 		if(role==null || !role.getRole().equalsIgnoreCase("manager")){
 			return new ModelAndView( getPages().getRedirect(request,getPages().getPAGE_ROOT(),"You cannot access this area!") );
 		}
-
-		Area a = getDaoManager().getArea(areaId);
 		
+		return new ModelAndView( getPages().getADMIN_AREAITEMS(),prepareModel(areaId,model) );
+	}
+	
+	
+	
+	private ModelMap prepareModel(int areaId, ModelMap model) {
+		
+		Area a = getDaoManager().getArea(areaId);		
 		Map m = new Map(a,null,getMapEngine());
+		
 		model.addAttribute("mapbackground", m.getMapBackground());
 		model.addAttribute("icons",getDaoManager().getAreaItemsIcons());
 		model.addAttribute("allareas",getDaoManager().listAllArea());
 		model.addAttribute("map",m);
 			
 		model.addAttribute(getPages().getCONTEXT_PAGES(), getPages());
-		model.addAttribute("base", request.getContextPath());
 		
 		model.addAttribute("area", a);
 		
 		model.addAttribute("map_width", Map.MAP_WIDTH);
 		model.addAttribute("map_height", Map.MAP_HEIGHT);
-
-		return new ModelAndView( getPages().getADMIN_AREAITEMS(),model );
+		
+		return model;
 	}
 	
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value="/admin/area/areaItem.html",method = RequestMethod.POST)
 	public ModelAndView saveArea(
 			HttpServletRequest request, HttpServletResponse resp, ModelMap model,
-			@RequestParam(value="act",required=true) String action,
+			@RequestParam(value="act",required=true) int action,
 			@RequestParam(value="areaid",required=true) int areaId,
 			
 			@RequestParam(value="id"	,required=false) int aiId,
@@ -103,23 +109,25 @@ public class AreaItemManager{
 			if(areaId==-1)
 				throw new Exception("Invalid AREA ID");
 
-			boolean aidoublestep = (loop.equals("true") || loop.equals("on") ); 	 	
-			boolean aiHide = ( hide.equals("true") || hide.equals("on") ); 	 
+			boolean aidoublestep = 	(hide!=null && (loop.equals("true") || loop.equals("on") ) ); 	 	
+			boolean aiHide = 		(hide!=null && ( hide.equals("true") || hide.equals("on") )); 	 
 			
-			if(action.equals("0")){
-
+			switch (action) {
+			case 0:
 				try{
 					AreaItem ai = new AreaItem("NewAreaItem", "temp", 0, areaId,
 							(short)0, (short)0, 0, 0, "",0,"", "",  
 							false, false, 0, "");
 
 					getDaoManager().create(ai);
+					model.addAttribute(getPages().getCONTEXT_ERROR(),"New Area Item Created");
 				}
 				catch (Exception e) {
 					throw new Exception("Could not save Area "+aiName + " please contact admin");
 				}
-			}else{
-
+			
+				break;
+			case 1:
 
 				if(aiId==-1)
 					throw new Exception("Invalid ID");
@@ -168,15 +176,24 @@ public class AreaItemManager{
 					ai.setNpcs(aiNpcs);
 
 					getDaoManager().update(ai);
+					model.addAttribute(getPages().getCONTEXT_ERROR(),"Area Item Saved");
 				}
 				catch (Throwable e) {
 					throw new Exception("Could not update Area "+aiName + " please contact admin");
 				}
-
+				break;
+			case 2:
+				try{
+				AreaItem ai = (AreaItem) getDaoManager().getAreaItem( aiId );
+				getDaoManager().delete(ai);
+				model.addAttribute(getPages().getCONTEXT_ERROR(),"Area Item Deleted");
+				}catch (Throwable e) {
+					throw new Exception("Could not delete Area "+aiName + " please contact admin");
+				}
+				break;
 			}
-
-
-			model.addAttribute(getPages().getCONTEXT_ERROR(),"Area Item Saved");
+			
+			
 
 
 		} catch (Exception e) {
@@ -184,8 +201,20 @@ public class AreaItemManager{
 			GenericUtil.err("AreaItemSave Exception", e);
 		}
 
-		return new ModelAndView(getPages().getADMIN_AREAITEMS()+"?areaid="+areaId, model);
+		model.addAttribute("areaid",areaId);
+		model = prepareModel(areaId,model);
+		return new ModelAndView(getPages().getADMIN_AREAITEMS(), model);
 
+	}
+	
+	@RequestMapping(value="/admin/area/jsonAreaItem.html",method = RequestMethod.GET)
+	public ModelAndView initJson(
+			HttpServletRequest request, HttpServletResponse resp, ModelMap model,
+			@RequestParam(value="id",required=true) int id
+	){
+		AreaItem ai = (AreaItem) getDaoManager().getAreaItem(id);
+		model.addAttribute("area",ai);
+		return new ModelAndView(getPages().getADMIN_JSONAREAITEMS(), model);
 	}
 
 }

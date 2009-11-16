@@ -46,13 +46,13 @@
 		<td valign="top">
 		
 			<@nestedpanel icon="image" title="Edit Area Item Data" width=350 height=520>
-			<form action="${rc.getContextPath()}/saveAreaItem" name="formedit" method="post">
+			<form action="${rc.getContextPath() + pages.ADMIN_AREAITEMS + pages.PAGE_EXT}" name="formedit" method="post">
 				<input type="hidden" name="areaid" value="${area.id}" />
 				<input type="hidden" name="act" value="1" />			
 				<table>
 					<tr>
 						<td>id</td>
-						<td><input type="text" name="id" readonly="readonly" size="3"></td>
+						<td><input type="text" name="id" readonly="readonly" size="3" value="0"></td>
 					</tr>
 					<tr>
 						<td>name</td>
@@ -70,16 +70,16 @@
 					</tr>
 					<tr>
 						<td>cost</td>
-						<td><input type="text" name="cost" size="3" ></td>
+						<td><input type="text" name="cost" size="3" value="0"></td>
 					</tr>			
 					<tr>
 						<td colspan=2>
 							<table width="100%">
 								<tr>					
 									<td width="25%">areax</td>
-									<td width="25%"><input type="text" name="areax" size="3" ></td>								
+									<td width="25%"><input type="text" name="areax" size="3" value="0" ></td>								
 									<td width="25%">areay</td>
-									<td width="25%"><input type="text" name="areay" size="3" ></td>
+									<td width="25%"><input type="text" name="areay" size="3" value="0" ></td>
 								</tr>
 							</table>
 						</td>
@@ -89,9 +89,9 @@
 							<table width="100%">
 								<tr>
 									<td width="25%">x</td>
-									<td width="25%"><input type="text" name="x" size="3" ></td>								
+									<td width="25%"><input type="text" name="x" size="3" value="0" ></td>								
 									<td width="25%">y</td>
-									<td width="25%"><input type="text" name="y" size="3" ></td>									
+									<td width="25%"><input type="text" name="y" size="3" value="0" ></td>									
 								</tr>
 							</table>
 						</td>
@@ -118,7 +118,7 @@
 					</tr>
 					<tr>
 						<td>areaItemLevel</td>
-						<td><input type="text" name="areaItemLevel" size="3" ></td>
+						<td><input type="text" name="areaItemLevel" size="3" value="0"></td>
 					</tr>
 					<tr>
 						<td>npcs</td>
@@ -132,6 +132,7 @@
 					<td valign="top" align="center" width="50%">
 						<button onclick="newArea()" >New</button><br/>
 						<button onclick="saveArea()">Save</button>
+						<button onclick="deleteArea()">Delete</button>
 						<button onclick="preview()" >Preview X&Y</button>
 					</td>
 					<td valign="top" align="right">						
@@ -174,39 +175,44 @@
 	
 	function getAreaData(id){
 
-		new Ajax.Request('${rc.getContextPath()}/admin/map/jsonAreaItem.jsp', {
-			  parameters: { id: id },
-			  method: 'get',
-			  sanitizeJSON:true,
-			  onSuccess: function(response) {
-				  	jdata = response.responseJSON;
+		$.getJSON(
+			"${rc.getContextPath() + pages.ADMIN_JSONAREAITEMS + pages.PAGE_EXT}?id="+id,
+		  	function(jdata){
+		    	for(var i=0;i<document.forms['formedit'].elements.length;i++){
+					var name = document.forms['formedit'].elements[i].name;
 
-				  	
-
-					for(var i=0;i<document.forms['formedit'].elements.length;i++){
-						var name = document.forms['formedit'].elements[i].name;
-
-						if(document.forms['formedit'].elements[name].type=="checkbox"){
-							document.forms['formedit'].elements[name].checked=jdata[name];
-						}
-						else{						
-							document.forms['formedit'].elements[name].value = jdata[name];
-						}
+					if(document.forms['formedit'].elements[name].type=="checkbox"){
+						document.forms['formedit'].elements[name].checked=jdata[name];
 					}
-					document.forms['formedit'].elements["act"].value="1";					
-				  }							  
-			});		
+					else{						
+						document.forms['formedit'].elements[name].value = jdata[name];
+					}
+				}
+				document.forms['formedit'].elements["act"].value="1";
+		  	}
+		);
+	
 	}
 
 	function newArea(){
 
-		document.forms['formedit'].elements["act"].value="0";
 		document.forms['formedit'].reset();
+		document.forms['formedit'].elements["act"].value="0";		
 		document.forms['formedit'].submit();
 	}
 	
-	function newArea(){
+	function saveArea(){
 		document.forms['formedit'].submit();
+	}
+	
+	function deleteArea(){
+		if(document.forms['formedit'].elements["areaid"].value==0){
+			alert("select an area to be deleted!");
+		}
+		else{
+			document.forms['formedit'].elements["act"].value="2";		
+			document.forms['formedit'].submit();
+		}
 	}
 
 	
