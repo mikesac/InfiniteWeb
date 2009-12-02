@@ -13,7 +13,7 @@
 	</script>
 	
 	<style type="text/css">
-	body{background-color:gray;}
+	body{background-color:#F7E6D2;}
 	.ui-layout-resizer {  background-color:transparent}
 	.ui-layout-toggler { border: 1px solid #94520; background-color: #945205; color: #ffffff; font-weight: bold; }
 	</style>

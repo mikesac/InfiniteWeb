@@ -4,16 +4,27 @@
 	<title>Dialog Editor</title>
 </head>
 <body>
-<script type="text/javascript" src="${base}/js/jquery/tree/jquery.tree.min.js"></script>
-<link rel="stylesheet" type="text/css" href="${base}/js/jquery/tree/themes/default/style.css" />
-
+<script type="text/javascript" src="${base}/js/jquery/treeview/jquery.treeview.min.js"></script>
+<link rel="stylesheet" type="text/css" href="${base}/js/jquery/treeview/jquery.treeview.css" />
+<style>
+	.treeview ul {background-color:transparent;}
+	.filetree span.ask, .filetree span.answ , .filetree span.base { padding: 1px 0 1px 16px; display: block; text-align:left; }
+	.filetree span.base { background: url(${base}/js/jquery/treeview/images/comments.gif) 0 0 no-repeat; }
+	.filetree span.ask { background: url(${base}/js/jquery/treeview/images/comment_b.gif) 0 0 no-repeat; }
+	.filetree span.answ { background: url(${base}/js/jquery/treeview/images/comment_y.gif) 0 0 no-repeat; }		
+</style>
 
 
 <table width="99%">
 	<tr>
 		<td width="50%" valign="top">
 			<@nestedpanel icon="person" title="Dialog Structure" width=400 height=450>
-				<div id="mytree"></div>
+				<ul id="browser" class="filetree">
+					<li>
+						<span class="base" id="base">Dialogs Structure</span>
+						<ul id="base_ul"></ul>					
+					</li>
+				</ul>
 			</@nestedpanel>
 			<textarea id="json_txt" cols="40"></textarea>
 			<button onclick="getJSON()">test</button>
@@ -36,6 +47,7 @@
 				</form>
 				<button onclick="addNpcDialog()">Append new</button>
 				<button onclick="editNpcDialog()" disabled="disabled" id="editQ">Edit Current</button>
+				<button onclick="delNpcDialog()" disabled="disabled" id="delQ">Delete Current</button>
 			</@nestedpanel>
 			
 			<@nestedpanel icon="person" title="Add Player answer" width=450 height=300>	
@@ -75,6 +87,7 @@
 				</form>		
 				<button onclick="addPcAnswer()">Append New</button>
 				<button onclick="editPcAnswer()" disabled="disabled" id="editA">Edit Current</button>
+				<button onclick="delPcAnswer()" disabled="disabled" id="delA">Delete Current</button>
 			</@nestedpanel>
 
 		</td>
@@ -83,151 +96,212 @@
 
 <script>
 
-var root = [{attributes:{id:"root"},data:{title:"Dialog",icon:"/Infinite/imgs/web/dialog/comments.gif"},type:{clickable	: false} }];
+var nAsk = 0;
+var nAnsw = 0;
 
-jQuery("#mytree").tree({
-				data : { 
-					type : "json",
-					opts : {
-						static : root
-					}
-				},
-				callback : {
-					onselect:selectNode
-				}
-			}
-		);
-
-var mytree =  jQuery.tree.reference("#mytree");
-
-generateNextDialog();
-
-function selectNode(node, tree){
-
-	if(node.id!="root"){
-		if( mytree.parent(mytree.selected)[0].id == "root"){
-			document.forms['npcdialog'].npc_id.value = node.id;
-			document.forms['npcdialog'].npc_sentence.value = tree.get_text(node);
-			document.getElementById("editQ").disabled=false;
-		}
-		else{
-			document.forms['pc_answer'].answ_id.value = node.id;
-			document.forms['pc_answer'].answ_answer.value = tree.get_text(node);
-			document.forms['pc_answer'].answ_reqLevel.value = node.attributes.rl.value;
-			document.forms['pc_answer'].answ_reqQuest.value = node.attributes.rq.value;
-			document.forms['pc_answer'].answ_reqQuestStatus.value = node.attributes.rqs.value;
-			document.forms['pc_answer'].answ_dialogId.value = node.attributes.rid.value;
-			document.forms['pc_answer'].answ_redirectUrl.value = node.attributes.rurl.value;
-			document.getElementById("editA").disabled=false;
-		}
+$(document).ready(function(){
+ $("#browser").treeview({animated:"fast"});   			 
+	initEvents();
 	}
+);
+
+document.getElementById("editQ").disabled=true;
+document.getElementById("delQ").disabled=true;
+document.getElementById("editA").disabled=true;
+document.getElementById("delA").disabled=true;
+
+
+function delPcAnswer(){
+	var del_id = document.forms['pc_answer'].answ_id.value;
+	$(document.getElementById(del_id).parentNode).remove();
+	$("#browser").treeview();
 }
 
-function addNpcDialog()
-{
-	var id =  mytree.children("#root").length
-	saveNpcDialog(id);
+
+function addPcAnswer(){
+	var add_id = document.forms['npcdialog'].npc_id.value;
+	
+	if(add_id=="base" || add_id.indexOf("_")!=-1){
+		alert("Cannot add an answer here!");
+	} 				
+	else
+	{
+		var nodeId = add_id + "_" + nAnsw;		
+		nAnsw++;
+	
+		if( add_id!="" && document.getElementById(add_id)){
+			var add_id = document.getElementById(add_id).parentNode;
+			
+			var txt = document.forms['pc_answer'].answ_answer.value;
+	
+			var rl = document.forms['pc_answer'].answ_reqLevel.value;
+			var rq = document.forms['pc_answer'].answ_reqQuest.value;
+			var rqs = document.forms['pc_answer'].answ_reqQuestStatus.value;
+			var rid = document.forms['pc_answer'].answ_dialogId.value;
+			var rurl = document.forms['pc_answer'].answ_redirectUrl.value;
+	
+			var topbranch = $("<li><span class='answ' id='"+nodeId+"' rl='"+rl+"' rq='"+rq+"' rqs='"+rqs+"' rid='"+rid+"' rurl='"+rurl+"'>"+txt+"</span></li>").appendTo(add_id);
+			$("#browser").treeview();
+	
+			document.forms['pc_answer'].reset();
+			document.getElementById("editA").disabled=false;
+			document.getElementById("delA").disabled=false;
+		}
+		else{
+			alert("Please,select a sentence to add an answer!");
+		}	
+	}
+	initEvents();
+}
+
+
+function editPcAnswer(){
+	var nodeId = document.forms['pc_answer'].answ_id.value;			
+	var txt = document.forms['pc_answer'].answ_answer.value;
+	var rl = document.forms['pc_answer'].answ_reqLevel.value;
+	var rq = document.forms['pc_answer'].answ_reqQuest.value;
+	var rqs = document.forms['pc_answer'].answ_reqQuestStatus.value;
+	var rid = document.forms['pc_answer'].answ_dialogId.value;
+	var rurl = document.forms['pc_answer'].answ_redirectUrl.value;
+	
+	
+	var oldNode = document.getElementById(nodeId)
+	var parent = oldNode.parentNode;
+	
+	var newNode = document.createElement("span");
+	newNode.innerHTML = txt;
+	newNode.id = nodeId;
+	newNode.setAttribute("rl",rl);
+	newNode.setAttribute("rq",rq);
+	newNode.setAttribute("rqs",rqs);
+	newNode.setAttribute("rid",rid);
+	newNode.setAttribute("rurl",rurl);
+	newNode.className = "answ";
+	
+	parent.replaceChild(newNode,oldNode);
+			
+	$("#browser").treeview();
+
+	document.forms['pc_answer'].reset();
+	document.getElementById("editA").disabled=false;
+	document.getElementById("delA").disabled=false;		
+	initEvents();
+}
+
+
+
+function addNpcDialog(){
+			
+	var nodeId = nAsk;
+	nAsk++;
+	var txt = document.forms['npcdialog'].npc_sentence.value;				
+				
+	var ask = $("<li><span class='ask' id='"+nodeId+"'>"+txt+"</span></li>").appendTo("#base_ul");
+	$("#browser").treeview({add:ask});
+	initEvents();
+	document.forms['npcdialog'].reset();
+	document.getElementById("editQ").disabled=true;
+	document.getElementById("delQ").disabled=true;
 }
 
 function editNpcDialog()
 {
 	var id =  document.forms['npcdialog'].npc_id.value;
-	saveNpcDialog(id);
-}
-
-function saveNpcDialog(id)
-{
 	var txt = document.forms['npcdialog'].npc_sentence.value;
-	mytree.create( {data : {title:txt, icon:"/Infinite/imgs/web/dialog/comment_b.gif"},attributes:{id:id} } ,  "#root");
-	generateNextDialog();
+	document.getElementById(id).innerHTML = txt;
 	document.forms['npcdialog'].reset();
 	document.getElementById("editQ").disabled=true;
+	document.getElementById("delQ").disabled=true;
 }
 
-function addPcAnswer()
-{
-	
-	
-	if( mytree.selected && mytree.selected!="#root" && mytree.parent(mytree.selected)[0] && mytree.parent(mytree.selected)[0].id == mytree.get_node("#root")[0].id)
-	{
-		var id =  mytree.selected[0].id + "_" + mytree.children(mytree.selected).length;
-		var txt = document.forms['pc_answer'].answ_answer.value;
-
-		var rl = document.forms['pc_answer'].answ_reqLevel.value;
-		var rq = document.forms['pc_answer'].answ_reqQuest.value;
-		var rqs = document.forms['pc_answer'].answ_reqQuestStatus.value;
-		var rid = document.forms['pc_answer'].answ_dialogId.value;
-		var rurl = document.forms['pc_answer'].answ_redirectUrl.value;
-
-		mytree.create( {
-			data : {
-				title:txt, 
-				icon:"/Infinite/imgs/web/dialog/comment_y.gif"
-			},
-			attributes:{
-				id:id,
-				rl:rl,
-				rq:rq,
-				rqs:rqs,
-				rid:rid,
-				rurl:rurl
-			} 
-		});
-		document.forms['pc_answer'].reset();
-		document.getElementById("editA").disabled=false;
-	}
-	else{
-		alert("You have to select a NPC sentence to add an answer!");
-	}	
+function delNpcDialog(){
+	var del_id = document.forms['npcdialog'].npc_id.value;
+	$(document.getElementById(del_id).parentNode).remove();
+	$("#browser").treeview();
+	document.forms['npcdialog'].reset();
+	document.getElementById("editQ").disabled=true;
+	document.getElementById("delQ").disabled=true;
 }
 
 
-function generateNextDialog(){
-	var dialogs = mytree.children("#root");
-	var parent = document.getElementById("answ_dialogId");
-	while(parent.hasChildNodes()){
-		parent.removeChild(parent.firstChild);
-	}
-	
-	for(var i=0;i<dialogs.length;i++){
-		var opt = document.createElement("option");
-		opt.value = dialogs[i].id;
-		opt.innerHTML = mytree.get_text(dialogs[i]);
-		parent.appendChild(opt);	
-	}
+
+
+
+function initEvents(){
+	var list = document.getElementsByTagName("span");
+	for(var i=0;i<list.length;i++){
+		list[i].setAttribute('onclick', 'selectNode(this.id)');
+	} 
 }
+
+
+function selectNode(id){
+
+	if(id=="base"){return}
+
+
+		if( id.indexOf("_")==-1){
+			document.forms['npcdialog'].npc_id.value = id;
+			document.forms['npcdialog'].npc_sentence.value = document.getElementById(id).innerHTML;
+			document.getElementById("editQ").disabled=false;
+			document.getElementById("delQ").disabled=false;
+		}
+		else{
+			document.forms['pc_answer'].answ_id.value = id;
+			document.forms['pc_answer'].answ_answer.value = document.getElementById(id).innerHTML;
+			document.forms['pc_answer'].answ_reqLevel.value = document.getElementById(id).getAttribute('rl');
+			document.forms['pc_answer'].answ_reqQuest.value = document.getElementById(id).getAttribute('rq');
+			document.forms['pc_answer'].answ_reqQuestStatus.value = document.getElementById(id).getAttribute('rqs');
+			document.forms['pc_answer'].answ_dialogId.value = document.getElementById(id).getAttribute('rid');
+			document.forms['pc_answer'].answ_redirectUrl.value = document.getElementById(id).getAttribute('rurl');
+			document.getElementById("editA").disabled=false;
+			document.getElementById("delA").disabled=false;
+		}
+	
+}
+
+
+
 
 function getJSON(){
 	var json = '{"dialog" : [';
-	var dialogs = mytree.children("#root");
-	for(var i=0;i<dialogs.length;i++){
-
-		if(i>0){
-			json+=",";
+	
+	var asks = $('.ask');
+	for(var i=0;i<asks.length;i++){
+	
+		if(i>0){ json+=",";	}	
+		json += '{"id":"'+asks[i].id+'","sentence":"'+asks[i].innerHTML+'","answer":[';
+		
+		var node = asks[i].nextSibling
+		while(node){
+			
+			answ = node.childNodes[0]
+			
+			json += '{';
+				json +=	'"answer":"'+answ.innerHTML+'",';
+				json +=	'"reqLevel":'+answ.getAttribute("rl")+',';
+				json +=	'"reqQuest":'+answ.getAttribute("rq")+',';
+				json +=	'"reqQuestStatus":'+answ.getAttribute("rqs")+',';
+				json +=	'"dialogId":"'+answ.getAttribute("rid")+'",';
+				json +=	'"redirectUrl":"'+answ.getAttribute("rurl")+'"';
+				json +=	'}';
+			
+			node = node.nextSibling
+			
+			if(node){ json +=","; }
 		}
 		
-		json += '{"id":"'+dialogs[i].id+'","sentence":"'+mytree.get_text(dialogs[i])+'","answer":[';
-
-			var answers =  mytree.children(dialogs[i]);
-			for(var j=0;j<answers.length;j++){
-
-				if(j>0){
-					json+=",";
-				}
-				
-				json += '{';
-				json +=	'"answer":"'+mytree.get_text(answers[j])+'",';
-				json +=	'"reqLevel":'+answers[j].attributes.rl.value+',';
-				json +=	'"reqQuest":'+answers[j].attributes.rq.value+',';
-				json +=	'"reqQuestStatus":'+answers[j].attributes.rqs.value+',';
-				json +=	'"dialogId":"'+answers[j].attributes.rid.value+'",';
-				json +=	'"redirectUrl":"'+answers[j].attributes.rurl.value+'"';
-				json +=	'}';				
-			}		
+		
 		json += ']}';
 	}
 	json += "]}";
+	
 	document.getElementById('json_txt').value = json;
+	console.log(json);
+	
+	
+	
+	
 	
 }
 
