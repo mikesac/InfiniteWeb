@@ -6,8 +6,8 @@
 <body>
 
 <style>
-.equipbody{width:500px;height:500px;background-image:url("../imgs/web/equip/equip_bg.gif");background-repeat:no-repeat;}
-.equipped{width:70px;height:70px;background-image: url("../imgs/web/equip/bg2.gif");border:3px inset gray;}
+.equipbody{width:500px;height:500px;background-image:url("${pages.IMG_WEB_PATH}equip/equip_bg.gif");background-repeat:no-repeat;}
+.equipped{width:70px;height:70px;background-image: url("${pages.IMG_WEB_PATH}equip/bg2.gif");border:3px inset gray;}
 </style>
 
 <script type="text/javascript" src="../js/jquery/grid/jquery.jqGrid.min.js"></script>

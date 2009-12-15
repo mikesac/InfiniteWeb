@@ -23,12 +23,12 @@
 				<#list mapbackground as row>
 					<tr>
 					<#list row as cell>
-						<td style="width:${map_width / map.nx};height:${map_height / map.ny};background-image:url('${rc.getContextPath()}/imgs/maps/${cell.background}.jpg');">
+						<td style="width:${map_width / map.nx};height:${map_height / map.ny};background-image:url('${pages.IMG_MAP_PATH}${cell.background}.jpg');">
 						<#list cell.items as areaItem>			
-							<div id="${areaItem.name}" class="iconmedium" style="position:relative;top:${areaItem.y}px;left:${areaItem.x}px;background-image: url(${rc.getContextPath()}/imgs/maps/icons/${areaItem.icon}.png);">
+							<div id="${areaItem.name}" class="iconmedium" style="position:relative;top:${areaItem.y}px;left:${areaItem.x}px;background-image: url(../${pages.IMG_WEB_PATH}maps/${areaItem.icon}.png);">
 								<div class="tile">
 									<a href="javascript:getAreaData(${areaItem.id})" ></a>
-									<img src="${rc.getContextPath()}/imgs/maps/icons/ok.gif" width="22" >
+									<img src="../${pages.IMG_WEB_PATH}maps/ok.gif" width="22" >
 								</div>								
 								<#if areaItem.icon=="fight" > 
 									<span style="position:relative;color:white;background-color:black;top:-18;left:30;">${areaItem.level}</span>
@@ -136,7 +136,7 @@
 						<button onclick="preview()" >Preview X&Y</button>
 					</td>
 					<td valign="top" align="right">						
-						<img src="../../imgs/web/admin/areas.gif" >
+						<img src="../${pages.IMG_WEB_PATH}admin/areas.gif" >
 					</td>
 				</tr>
 			</table>

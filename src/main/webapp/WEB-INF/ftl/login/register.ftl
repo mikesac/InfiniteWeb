@@ -15,7 +15,7 @@
 		<table>
 			<tr>
 				<td colspan="2" align="center" ><img class="round"
-					align="center" src="../imgs/web/hdr/logo.png">
+					align="center" src="${pages.IMG_WEB_PATH}hdr/logo.png">
 				</td>
 			</tr>			
 			<tr>

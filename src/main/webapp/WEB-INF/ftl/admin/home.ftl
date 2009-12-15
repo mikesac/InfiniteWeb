@@ -10,30 +10,30 @@
 <table width="95%" cellpadding=10 cellspacing=10 >
 	<tr>
 		<td>
-			<@panel title="Manage Map" icon="person" url="${base + pages.ADMIN_MAP + pages.PAGE_EXT}" img="../imgs/web/admin/maps.gif" alt="Maps" width="200px" height="120px" img_w=100 img_h=100 />
+			<@panel title="Manage Map" icon="person" url="${base + pages.ADMIN_MAP + pages.PAGE_EXT}" img="${pages.IMG_WEB_PATH}admin/maps.gif" alt="Maps" width="200px" height="120px" img_w=100 img_h=100 />
 		</td>
 		<td>
-			<@panel title="Manage Map Areas" icon="person" url="${base + pages.ADMIN_AREAITEMS + pages.PAGE_EXT}?areaid=1" img="../imgs/web/admin/areas.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
+			<@panel title="Manage Map Areas" icon="person" url="${base + pages.ADMIN_AREAITEMS + pages.PAGE_EXT}?areaid=1" img="${pages.IMG_WEB_PATH}/admin/areas.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
 		</td>
 		<td>
-			<@panel title="Manage Items" icon="person" url="" img="../imgs/web/admin/items.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
+			<@panel title="Manage Items" icon="person" url="" img="${pages.IMG_WEB_PATH}/admin/items.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
 		</td>
 		<td>
-			<@panel title="Manage Spells" icon="person" url="" img="../imgs/web/admin/spells.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
+			<@panel title="Manage Spells" icon="person" url="${base + pages.ADMIN_SPELL + pages.PAGE_EXT}" img="${pages.IMG_WEB_PATH}/admin/spells.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
 		</td>
 	</tr>
 	<tr>
 		<td>
-			<@panel title="Manage Monsters" icon="person" url="" img="../imgs/web/admin/monsters.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
+			<@panel title="Manage Monsters" icon="person" url="" img="${pages.IMG_WEB_PATH}/admin/monsters.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
 		</td>
 		<td>
-			<@panel title="Manage NPCs" icon="person" url="" img="../imgs/web/admin/NPCs.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
+			<@panel title="Manage NPCs" icon="person" url="" img="${pages.IMG_WEB_PATH}/admin/NPCs.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
 		</td>
 		<td>
-			<@panel title="Manage Dialogs" icon="person" url="${base + pages.ADMIN_DIALOG + pages.PAGE_EXT}" img="../imgs/web/admin/dialogs.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
+			<@panel title="Manage Dialogs" icon="person" url="${base + pages.ADMIN_DIALOG + pages.PAGE_EXT}" img="${pages.IMG_WEB_PATH}/admin/dialogs.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
 		</td>
 		<td>
-			<@panel title="Manage Quests" icon="person" url="" img="../imgs/web/admin/quests.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
+			<@panel title="Manage Quests" icon="person" url="" img="${pages.IMG_WEB_PATH}/admin/quests.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
 		</td>
 	</tr>
 </table>

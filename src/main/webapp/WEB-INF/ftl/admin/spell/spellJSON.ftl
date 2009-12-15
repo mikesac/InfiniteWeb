@@ -1,0 +1,27 @@
+<#if s?exists>
+{
+	"s_id":"${s.id}",
+	"s_name":"${s.name}",
+	"s_description":"${s.description}",
+	"s_image":"${s.image}",
+	"s_costMp":"${s.costMp}",
+	"s_price":"${s.price?string("0")}",
+	"s_reqLev":"${s.reqLev}",
+	"s_level":"${s.level}",
+	"s_duration":"${s.duration}",
+	"s_initiative":"${s.initiative}",
+	"s_damage":"${s.damage}",
+	"s_savingthrow":"${s.savingthrow}",
+	"s_spelltype":"${s.spelltype}",
+	"s_reqStr":"${s.reqStr}",
+	"s_reqInt":"${s.reqInt}",
+	"s_reqDex":"${s.reqDex}",
+	"s_reqCha":"${s.reqCha}",
+	"s_modStr":"${s.modStr}",
+	"s_modInt":"${s.modInt}",
+	"s_modDex":"${s.modDex}",
+	"s_modCha":"${s.modCha}"
+}
+<#else>
+"error"
+</#if>

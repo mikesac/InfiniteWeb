@@ -30,7 +30,7 @@
 			<tr>
 				<td>
 				<div class="iconlarge"
-					style="background-image: url(../imgs/web/stats/life.png);">
+					style="background-image: url(${pages.IMG_WEB_PATH}stats/life.png);">
 				<div class="tile" />
 				</div>
 				</td>
@@ -41,13 +41,13 @@
 				<td>${character.pointsLifeMax - character.pointsLifeBase}</td>
 				<td>
 					<#if up >
-						<a href="javascript:doUpgrade(${PL})"><img border=0 src="../imgs/web/stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
+						<a href="javascript:doUpgrade(${PL})"><img border=0 src="${pages.IMG_WEB_PATH}stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
 					<#else>
 						&nbsp;
 					</#if>
 				</td>
 				<td>
-				<div class="iconlarge" style="background-image: url(../imgs/web/stats/str.png);">
+				<div class="iconlarge" style="background-image: url(${pages.IMG_WEB_PATH}stats/str.png);">
 				<div class="tile" /></div>
 				</td>
 				<td><p style="color:#B80701">Strength (STR)</p>
@@ -57,7 +57,7 @@
 				<td>${character.strenght - character.dao.baseStr}</td>
 				<td> 
 					<#if up >
-						<a href="javascript:doUpgrade(${STR})"><img border=0 src="../imgs/web/stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
+						<a href="javascript:doUpgrade(${STR})"><img border=0 src="${pages.IMG_WEB_PATH}stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
 					<#else>
 						&nbsp;
 					</#if>
@@ -67,7 +67,7 @@
 			
 			<tr>
 				<td>
-				<div class="iconlarge" style="background-image: url(../imgs/web/stats/mana.png);">
+				<div class="iconlarge" style="background-image: url(${pages.IMG_WEB_PATH}stats/mana.png);">
 				<div class="tile" /></div>
 				</td>
 				<td><p style="color:#1B1DDF">Magic Points (MP)</p>
@@ -76,14 +76,14 @@
 				<td>${character.pointsMagicBase}</td>
 				<td>${character.pointsMagicMax - character.pointsMagicBase}</td>
 				<td> 
-					<#if up ><a href="javascript:doUpgrade(${PM})"><img border=0 src="../imgs/web/stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
+					<#if up ><a href="javascript:doUpgrade(${PM})"><img border=0 src="${pages.IMG_WEB_PATH}stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
 						<#else>
 						&nbsp;
 					</#if>
 				</td>
 				<td>
 				<div class="iconlarge"
-					style="background-image: url(../imgs/web/stats/int.png);">
+					style="background-image: url(${pages.IMG_WEB_PATH}stats/int.png);">
 				<div class="tile" /></div>
 				</td>
 				<td><p style="color:#1B1DDF">Intelligence (INT)</p>
@@ -92,7 +92,7 @@
 				<td>${character.dao.baseInt}</td>
 				<td>${character.intelligence - character.dao.baseInt}</td>
 				<td> 
-					<#if up ><a href="javascript:doUpgrade(${INT})"><img border=0 src="../imgs/web/stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
+					<#if up ><a href="javascript:doUpgrade(${INT})"><img border=0 src="${pages.IMG_WEB_PATH}stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
 						<#else>
 						&nbsp;
 					</#if>
@@ -103,7 +103,7 @@
 			<tr>
 				<td>
 				<div class="iconlarge"
-					style="background-image: url(../imgs/web/stats/action.png);">
+					style="background-image: url(${pages.IMG_WEB_PATH}stats/action.png);">
 				<div class="tile" /></div>
 				</td>
 				<td><p style="color:#CFA80C">Action Points (AP)</p>
@@ -112,14 +112,14 @@
 				<td>${character.pointsActionBase}</td>
 				<td>${character.pointsActionMax - character.pointsActionBase}</td>
 				<td> 
-					<#if up ><a href="javascript:doUpgrade(${PA})"><img border=0 src="../imgs/web/stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
+					<#if up ><a href="javascript:doUpgrade(${PA})"><img border=0 src="${pages.IMG_WEB_PATH}stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
 						<#else>
 						&nbsp;
 					</#if>
 				</td>
 				<td>
 				<div class="iconlarge"
-					style="background-image: url(../imgs/web/stats/dex.png);">
+					style="background-image: url(${pages.IMG_WEB_PATH}stats/dex.png);">
 				<div class="tile" /></div>
 				</td>
 				<td><p style="color:#CFA80C">Dexterity (DEX)</p>
@@ -128,7 +128,7 @@
 				<td>${character.dao.baseDex}</td>
 				<td>${character.dexterity - character.dao.baseDex}</td>
 				<td> 
-					<#if up ><a href="javascript:doUpgrade(${DEX})"><img border=0 src="../imgs/web/stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
+					<#if up ><a href="javascript:doUpgrade(${DEX})"><img border=0 src="${pages.IMG_WEB_PATH}stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
 						<#else>
 						&nbsp;
 					</#if>
@@ -139,7 +139,7 @@
 			<tr>
 				<td>
 				<div class="iconlarge"
-					style="background-image: url(../imgs/web/stats/charm.png);">
+					style="background-image: url(${pages.IMG_WEB_PATH}stats/charm.png);">
 				<div class="tile" /></div>
 				</td>
 				<td><p style="color:#9800F0">Charm Points (CP)</p>
@@ -148,14 +148,14 @@
 				<td>${character.pointsCharmBase}</td>
 				<td>${character.pointsCharmMax - character.pointsCharmBase}</td>
 				<td> 
-					<#if up ><a href="javascript:doUpgrade(${PC})"><img border=0 src="../imgs/web/stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
+					<#if up ><a href="javascript:doUpgrade(${PC})"><img border=0 src="${pages.IMG_WEB_PATH}stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
 						<#else>
 						&nbsp;
 					</#if>
 				</td>
 				<td>
 				<div class="iconlarge"
-					style="background-image: url(../imgs/web/stats/cha.png);">
+					style="background-image: url(${pages.IMG_WEB_PATH}stats/cha.png);">
 				<div class="tile" /></div>
 				</td>
 				<td><p style="color:#9800F0">Charisma (CHA)</p>
@@ -164,7 +164,7 @@
 				<td>${character.dao.baseCha}</td>
 				<td>${character.charisma - character.dao.baseCha}</td>
 				<td> 
-					<#if up ><a href="javascript:doUpgrade(${CHA})"><img border=0 src="../imgs/web/stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
+					<#if up ><a href="javascript:doUpgrade(${CHA})"><img border=0 src="${pages.IMG_WEB_PATH}stats/plus.png" alt="Increment this skill" title="Increment this skill"/></a>
 						<#else>
 						&nbsp;
 					</#if>
@@ -175,7 +175,7 @@
 			<tr>
 				<td>
 				<div class="iconlarge"
-					style="background-image: url(../imgs/web/stats/px.png);">
+					style="background-image: url(${pages.IMG_WEB_PATH}stats/px.png);">
 				<div class="tile" /></div>
 				</td>
 				<td colspan="3">

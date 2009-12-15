@@ -15,27 +15,27 @@
 
 #triskel{
 	width:228px; height:225px; 
-	background-image: url(../imgs/web/spell/triskel.png);
+	background-image: url(${pages.IMG_WEB_PATH}spell/triskel.png);
 	background-repeat:no-repeat;
 }
 
 .bookpg1{
-	border:0px;width:282px;height:443px; background-image: url("../imgs/web/spell/bookbg.png");background-repeat:repeat-y;
+	border:0px;width:282px;height:443px; background-image: url("${pages.IMG_WEB_PATH}spell/bookbg.png");background-repeat:repeat-y;
 	}
 	
 .bookpg2{
 	border:0px;width:282px;height:443px;
-	background-image: url("../imgs/web/spell/bookbg2.png");
+	background-image: url("${pages.IMG_WEB_PATH}spell/bookbg2.png");
 	background-repeat:repeat-y;
 	}
 	
-#book_n{width:700px;height:28px;background-image: url("../imgs/web/spell/book_n.png");background-repeat:no-repeat;}
-#book_w{width:55px;height:443px;background-image: url("../imgs/web/spell/book_w.png");background-repeat:no-repeat;}
-#book_p1{width:282px;background-image: url("../imgs/web/spell/bookbg.png");background-repeat:repeat-y;}
-#book_c{width:27px;height:443px;background-image: url("../imgs/web/spell/book_c.png");background-repeat:no-repeat;}
-#book_p2{width:282px;background-image: url("../imgs/web/spell/bookbg2.png");background-repeat:repeat-y;}
-#book_e{width:55px;height:443px;background-image: url("../imgs/web/spell/book_e.png");background-repeat:no-repeat;}
-#book_s{width:700px;height:71px;background-image: url("../imgs/web/spell/book_s.png");background-repeat:no-repeat;}
+#book_n{width:700px;height:28px;background-image: url("${pages.IMG_WEB_PATH}spell/book_n.png");background-repeat:no-repeat;}
+#book_w{width:55px;height:443px;background-image: url("${pages.IMG_WEB_PATH}spell/book_w.png");background-repeat:no-repeat;}
+#book_p1{width:282px;background-image: url("${pages.IMG_WEB_PATH}spell/bookbg.png");background-repeat:repeat-y;}
+#book_c{width:27px;height:443px;background-image: url("${pages.IMG_WEB_PATH}spell/book_c.png");background-repeat:no-repeat;}
+#book_p2{width:282px;background-image: url("${pages.IMG_WEB_PATH}spell/bookbg2.png");background-repeat:repeat-y;}
+#book_e{width:55px;height:443px;background-image: url("${pages.IMG_WEB_PATH}spell/book_e.png");background-repeat:no-repeat;}
+#book_s{width:700px;height:71px;background-image: url("${pages.IMG_WEB_PATH}spell/book_s.png");background-repeat:no-repeat;}
 
 </style>
 
@@ -104,9 +104,9 @@
 		</table>
 		</td>
 		<td id="triskel">
-			<img onclick="goPage(${attack})" style="position: relative; top: -65px; left: 78.5px;" src="../imgs/web/spell/globe_r.<#if type==attack>gif<#else>png</#if>" alt="Attack Spells" title="Attack Spells" /> 
-			<img onclick="goPage(${heal})" style="position: relative; top: 41px; left: -18px;"	src="../imgs/web/spell/globe_b.<#if type==heal>gif<#else>png</#if>"	alt="Healing Spells" title="Healing Spells" /> 
-			<img onclick="goPage(${defend})" style="position: relative; top: 25px; left: 40px;" src="../imgs/web/spell/globe_g.<#if type==defend>gif<#else>png</#if>" alt="Protection Spells" title="Protection Spells" /></td>
+			<img onclick="goPage(${attack})" style="position: relative; top: -65px; left: 78.5px;" src="${pages.IMG_WEB_PATH}spell/globe_r.<#if type==attack>gif<#else>png</#if>" alt="Attack Spells" title="Attack Spells" /> 
+			<img onclick="goPage(${heal})" style="position: relative; top: 41px; left: -18px;"	src="${pages.IMG_WEB_PATH}spell/globe_b.<#if type==heal>gif<#else>png</#if>"	alt="Healing Spells" title="Healing Spells" /> 
+			<img onclick="goPage(${defend})" style="position: relative; top: 25px; left: 40px;" src="${pages.IMG_WEB_PATH}spell/globe_g.<#if type==defend>gif<#else>png</#if>" alt="Protection Spells" title="Protection Spells" /></td>
 	</tr>
 	<tr>
 		<td valign="middle" align="center">

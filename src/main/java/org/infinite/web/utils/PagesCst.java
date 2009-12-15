@@ -12,10 +12,21 @@ import org.springframework.web.servlet.view.RedirectView;
 
 public class PagesCst {
 	
+	//Game data - get from spring context to be externally configurable
+	private String absoluteDataPath;
+	private String relativeDataPath;	
+	
+	/*
+	 * INTERNAL REFERENCES
+	 * 
+	 * All this refers to server web data for common application behavior and should be INSIDE webapp
+	 */
+	
+	
 	private final String STATIC_BASEPATH = "/Infinite";
 	private final String PAGE_EXT = ".html";
 	
-	//PAGES
+	//PAGES - game section
 	private final String PAGE_START = "/player/start";
 	private final String PAGE_MAPFIGHT = "/player/mapFight";
 	private final String PAGE_MAPFIGHTREPORT = "/player/mapFightReport";
@@ -32,31 +43,27 @@ public class PagesCst {
 	private final String PAGE_SHOP= "/player/shop";
 	private final String PAGE_SSHOP= "/player/sshop";
 	
-	//IMAGES
-	private final String IMG_ITEM_EXT= ".jpg";
-	private final String IMG_ITEM_PATH= "../imgs/item/";
+	//PAGES - admin section
+	private final String ADMIN_HOME 		= "/admin/home";
+	private final String ADMIN_DIALOG 		= "/admin/dialog/dialog";
+	private final String ADMIN_DIALOG_JSON 	= "/admin/dialog/dialogJSON";
+	private final String ADMIN_MAP 			= "/admin/map/maps";
+	private final String ADMIN_MAPPREVIEW 	= "/admin/map/mapPreview";
+	private final String ADMIN_MAPLIST 		= "/admin/map/listArea";
+	private final String ADMIN_AREAITEMS 	= "/admin/area/areaItem";
+	private final String ADMIN_JSONAREAITEMS 	= "/admin/area/jsonAreaItem";
+	private final String ADMIN_SPELL 		= "/admin/spell/spell";
+	private final String ADMIN_SPELL_JSON 		= "/admin/spell/spellJSON";
+
 	
-	private final String IMG_SPELL_EXT= ".jpg";
-	private final String IMG_SPELL_PATH= "../imgs/spell/";
+	//REFERENCES
+	private final String IMG_WEB_EXT= ".jpg";
+	private final String IMG_WEB_PATH= "../imgs/web/";
 	
-	private final String IMG_MONST_EXT= ".jpg";
-	private final String IMG_MONST_PATH= "../imgs/monster/";
-	private final String IMG_MONST_PATH_BIG= "../imgs/monster/big/";
-	
-	private final String IMG_NPC_EXT= ".jpg";
-	private final String IMG_NPC_PATH= "../imgs/npc/";
-	private final String IMG_NPC_PATH_BIG= "../imgs/npc/big/";
-	
-	private final String IMG_MAP_EXT= ".jpg";
-	private final String IMG_MAP_PATH= "/imgs/maps/";
-	private final String IMG_MAP_PATH_TMP= "/imgs/maps/tmp/";
-	
-	
-	
-	//model variables
+	//CONTEXT - model variables
 	private final String CONTEXT_PAGES = "pages";
 	private final String CONTEXT_CHARACTER = "character";
-	public final static String CONTEXT_ERROR = "error";
+	public  final static String CONTEXT_ERROR = "error";
 	private final String CONTEXT_MAP = "map";
 	private final String CONTEXT_MAPITEM = "map_item";
 	private final String CONTEXT_SPELLTYPE = "spell_type";
@@ -67,15 +74,62 @@ public class PagesCst {
 	
 	private final String CONTEXT_FIGHT_REPORT_S1 = "fight_report_s1";
 	private final String CONTEXT_FIGHT_REPORT_S2= "fight_report_s2";
-
-	private final String ADMIN_HOME 		= "/admin/home";
-	private final String ADMIN_DIALOG 		= "/admin/dialog/dialog";
-	private final String ADMIN_MAP 			= "/admin/map/maps";
-	private final String ADMIN_MAPPREVIEW 	= "/admin/map/mapPreview";
-	private final String ADMIN_MAPLIST 		= "/admin/map/listArea";
-	private final String ADMIN_AREAITEMS 	= "/admin/area/areaItem";
-	private final String ADMIN_JSONAREAITEMS 	= "/admin/area/jsonAreaItem";
 	
+	/*
+	 * GAME REFERENCES
+	 * 
+	 * All this refers to a local installation of a game and should be OUTSIDE webapps
+	 */
+	
+	
+	//IMAGES
+	private final String IMG_PC_EXT= ".jpg";
+	private final String IMG_PC_PATH= "/imgs/player/";
+	
+	private final String IMG_ITEM_EXT= ".jpg";
+	private final String IMG_ITEM_PATH= "/imgs/item/";
+	
+	private final String IMG_SPELL_EXT= ".jpg";
+	private final String IMG_SPELL_PATH= "/imgs/spell/";
+	
+	private final String IMG_MONST_EXT= ".jpg";
+	private final String IMG_MONST_PATH= "/imgs/monster/";
+	private final String IMG_MONST_PATH_BIG= "/imgs/monster/big/";
+	
+	private final String IMG_NPC_EXT= ".jpg";
+	private final String IMG_NPC_PATH= "/imgs/npc/";
+	private final String IMG_NPC_PATH_BIG= "/imgs/npc/big/";
+	
+	private final String IMG_MAP_EXT= ".jpg";
+	private final String IMG_MAP_PATH= "/imgs/maps/";
+	private final String IMG_MAP_PATH_TMP= "/imgs/maps/tmp/";
+	
+	private final String DATA_NPC_EXT= ".json";
+	private final String DATA_NPC_PATH= "/dialogs/npc/";
+	
+	
+	
+
+	
+	
+	public String getADMIN_SPELL() {
+		return ADMIN_SPELL;
+	}
+	public String getADMIN_DIALOG_JSON() {
+		return ADMIN_DIALOG_JSON;
+	}
+	public void setRelativeDataPath(String relativeDataPath) {
+		this.relativeDataPath = relativeDataPath;
+	}
+	public String getRelativeDataPath() {
+		return relativeDataPath;
+	}
+	public void setAbsoluteDataPath(String absoluteDataPath) {
+		this.absoluteDataPath = absoluteDataPath;
+	}
+	public String getAbsoluteDataPath() {
+		return absoluteDataPath;
+	}
 	public String getPAGE_START() {
 		return PAGE_START;
 	}
@@ -131,25 +185,28 @@ public class PagesCst {
 		return IMG_ITEM_EXT;
 	}
 	public String getIMG_ITEM_PATH() {
-		return IMG_ITEM_PATH;
+		return getRelativeDataPath() + IMG_ITEM_PATH;
 	}
 	public String getIMG_SPELL_EXT() {
 		return IMG_SPELL_EXT;
 	}
 	public String getIMG_SPELL_PATH() {
-		return IMG_SPELL_PATH;
+		return getRelativeDataPath() + IMG_SPELL_PATH;
+	}
+	public String getAbsoluteIMG_SPELL_PATH() {
+		return getAbsoluteDataPath() + IMG_SPELL_PATH;
 	}
 	public String getIMG_MONST_EXT() {
 		return IMG_MONST_EXT;
 	}
 	public String getIMG_MONST_PATH() {
-		return IMG_MONST_PATH;
+		return getRelativeDataPath() + IMG_MONST_PATH;
 	}
 	public String getIMG_NPC_EXT() {
 		return IMG_NPC_EXT;
 	}
 	public String getIMG_NPC_PATH() {
-		return IMG_NPC_PATH;
+		return getRelativeDataPath() + IMG_NPC_PATH;
 	}
 	public String getCONTEXT_CHARACTER() {
 		return CONTEXT_CHARACTER;
@@ -236,10 +293,10 @@ public class PagesCst {
 		return out;
 	}
 	public String getIMG_MONST_PATH_BIG() {
-		return IMG_MONST_PATH_BIG;
+		return getRelativeDataPath() + IMG_MONST_PATH_BIG;
 	}
 	public String getIMG_NPC_PATH_BIG() {
-		return IMG_NPC_PATH_BIG;
+		return getRelativeDataPath() + IMG_NPC_PATH_BIG;
 	}
 	public String getADMIN_MAP() {
 		return ADMIN_MAP;
@@ -248,16 +305,43 @@ public class PagesCst {
 		return IMG_MAP_EXT;
 	}
 	public String getIMG_MAP_PATH() {
-		return IMG_MAP_PATH;
+		return getRelativeDataPath() + IMG_MAP_PATH;
+	}
+	public String getAbsoluteIMG_MAP_PATH() {
+		return getAbsoluteDataPath() + IMG_MAP_PATH;
 	}
 	public String getIMG_MAP_PATH_TMP() {
-		return IMG_MAP_PATH_TMP;
+		return getRelativeDataPath() + IMG_MAP_PATH_TMP;
+	}
+	public String getAbsoluteIMG_MAP_PATH_TMP() {
+		return getAbsoluteDataPath() + IMG_MAP_PATH_TMP;
 	}
 	public String getADMIN_DIALOG() {
 		return ADMIN_DIALOG;
 	}
 	public String getADMIN_JSONAREAITEMS() {
 		return ADMIN_JSONAREAITEMS;
+	}
+	public String getDATA_NPC_EXT() {
+		return DATA_NPC_EXT;
+	}
+	public String getDATA_NPC_PATH() {
+		return getAbsoluteDataPath() + DATA_NPC_PATH;
+	}
+	public String getIMG_WEB_EXT() {
+		return IMG_WEB_EXT;
+	}
+	public String getIMG_WEB_PATH() {
+		return IMG_WEB_PATH;
+	}
+	public String getIMG_PC_EXT() {
+		return IMG_PC_EXT;
+	}
+	public String getIMG_PC_PATH() {
+		return getRelativeDataPath() + IMG_PC_PATH;
+	}
+	public String getADMIN_SPELL_JSON() {
+		return ADMIN_SPELL_JSON;
 	}
 	
 	

@@ -12,7 +12,7 @@
 	
 		<table>
 			<tr>
-				<td><img src="../../imgs/web/admin/maps.gif" ></td>
+				<td><img src="../${pages.IMG_WEB_PATH}admin/maps.gif" ></td>
 				<td>Fill the form with the Map image and the size of the areas you want it to be splitted in.</td>
 			</tr>
 		</table>

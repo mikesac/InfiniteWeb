@@ -13,7 +13,7 @@
 	<tr>
 		<td>
 			<div class="ui-corner-all" style="border:2px solid lightgray" >
-				<img alt="No Character" width="100" height="100" class="avatar"	src="${rc.getContextPath()}/imgs/player/${Session.character.pic}">
+				<img alt="No Character" width="100" height="100" class="avatar"	src="${pages.IMG_PC_PATH}${Session.character.pic}">
 			</div>
 		</td>
 		<td>
@@ -87,43 +87,43 @@
 	<tr>
 		<td class="ui-state-default ui-corner-all" width="50%" valign="middle" align="center">
 			<a href="${rc.getContextPath()}${pages.PAGE_MAP}${pages.PAGE_EXT}" >
-				<img height="50px" src="../imgs/web/admin/maps.gif" alt="Map" title="Map" border="0">
+				<img height="50px" src="${pages.IMG_WEB_PATH}admin/maps.gif" alt="Map" title="Map" border="0">
 			</a>
 		</td>
 		<td class="ui-state-default ui-corner-all" valign="middle" align="center">
 			<a href="${rc.getContextPath()}${pages.PAGE_EQUIP}${pages.PAGE_EXT}" >
-				<img height="50px" src="../imgs/web/admin/equip.gif" alt="Equipment" title="Equipment" border="0">
+				<img height="50px" src="${pages.IMG_WEB_PATH}admin/equip.gif" alt="Equipment" title="Equipment" border="0">
 			</a>
 		</td>
 	</tr>
 	<tr>
 		<td class="ui-state-default ui-corner-all"  valign="middle" align="center">
 			<a href="${rc.getContextPath()}${pages.PAGE_SPELL}${pages.PAGE_EXT}" >
-				<img height="50px" src="../imgs/web/admin/spells.gif" alt="Spell Book" title="Spell Book" border="0">
+				<img height="50px" src="${pages.IMG_WEB_PATH}admin/spells.gif" alt="Spell Book" title="Spell Book" border="0">
 			</a>
 		</td>
 		<td class="ui-state-default ui-corner-all" valign="middle" align="center" >
 			<a href="${rc.getContextPath()}${pages.PAGE_BATTLEPLAN}${pages.PAGE_EXT}" >
-				<img height="50px" src="../imgs/web/admin/battle.gif" alt="Battle Strategy" title="Battle Strategy" border="0">
+				<img height="50px" src="${pages.IMG_WEB_PATH}admin/battle.gif" alt="Battle Strategy" title="Battle Strategy" border="0">
 			</a>
 		</td>
 	</tr>
 	<tr>
 		<td class="ui-state-default ui-corner-all" valign="middle" align="center" >
 			<a href="${rc.getContextPath()}${pages.PAGE_STATUS}${pages.PAGE_EXT}" >
-				<img height="50px" src="../imgs/web/admin/stats.gif" alt="Status" title="Status" border="0">
+				<img height="50px" src="${pages.IMG_WEB_PATH}admin/stats.gif" alt="Status" title="Status" border="0">
 			</a>
 		</td>
 		<td class="ui-state-default ui-corner-all" valign="middle" align="center" >
 			<a href="javascript:alert('TODO')" >
-				<img height="50px" src="../imgs/web/admin/quests.gif" alt="Quests" title="Quests" border="0">
+				<img height="50px" src="${pages.IMG_WEB_PATH}admin/quests.gif" alt="Quests" title="Quests" border="0">
 			</a>
 		</td>
 	</tr>
 	<tr>
 		<td class="ui-state-default ui-corner-all" valign="middle" align="center" >
 			<a href="javascript:alert('TODO')" >
-				<img height="50px" src="../imgs/web/admin/messages.gif" alt="Messages" title="Messages" border="0">
+				<img height="50px" src="${pages.IMG_WEB_PATH}admin/messages.gif" alt="Messages" title="Messages" border="0">
 			</a>
 		</td>
 		<td></td>
@@ -139,31 +139,31 @@
 
 
 	<tr>
-		<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/str.gif" alt="Strenght" title="Strenght"></td>
+		<td><img src="${pages.IMG_WEB_PATH}stats/ico/str.gif" alt="Strenght" title="Strenght"></td>
 		<td><input type="text" size="2" readonly="readonly" value="${Session.character.strenght}"
 			style="text-align: right;" /></td>
 	
-		<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/int.gif" alt="Intelligence" title="Intelligence"></td>
+		<td><img src="${pages.IMG_WEB_PATH}stats/ico/int.gif" alt="Intelligence" title="Intelligence"></td>
 		<td><input type="text" size="2" readonly="readonly" value="${Session.character.intelligence}"
 			style="text-align: right;" /></td>
 	</tr>
 
 	<tr>
-		<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/dex.gif" alt="Dexterity" title="Dexterity"></td>
+		<td><img src="${pages.IMG_WEB_PATH}stats/ico/dex.gif" alt="Dexterity" title="Dexterity"></td>
 		<td><input type="text" size="2" readonly="readonly" value="${Session.character.dexterity}"
 			style="text-align: right;" /></td>
 	
-		<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/cha.gif" alt="Charisma" title="Charisma"></td>
+		<td><img src="${pages.IMG_WEB_PATH}stats/ico/cha.gif" alt="Charisma" title="Charisma"></td>
 		<td><input type="text" size="2" readonly="readonly" value="${Session.character.charisma}"
 			style="text-align: right;" /></td>
 	</tr>
 	
 	<tr>
-		<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/ac.gif" alt="Armor Class" title="Armor Class"></td>
+		<td><img src="${pages.IMG_WEB_PATH}stats/ico/ac.gif" alt="Armor Class" title="Armor Class"></td>
 		<td><input type="text" size="2" readonly="readonly" value="${Session.character.totalCA}"
 			style="text-align: right;" /></td>
 	
-		<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/gold.gif" alt="Gold" title="Gold"></td>
+		<td><img src="${pages.IMG_WEB_PATH}stats/ico/gold.gif" alt="Gold" title="Gold"></td>
 		<td><input type="text" size="2" readonly="readonly" value="${Session.character.gold}" style="text-align: right;" /></td>
 	</tr>
 

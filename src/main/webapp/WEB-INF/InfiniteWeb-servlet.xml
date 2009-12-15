@@ -4,7 +4,10 @@
 		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
 
-	<bean id="pages" class="org.infinite.web.utils.PagesCst" />
+	<bean id="pages" class="org.infinite.web.utils.PagesCst" >
+		<property name="absoluteDataPath" value="/var/www/infinite/data" />
+		<property name="relativeDataPath" value="/infinite/data" />
+	</bean>
 	
 	<bean id="accountEngine" class="org.infinite.web.engines.account.AccountEngine" />
 

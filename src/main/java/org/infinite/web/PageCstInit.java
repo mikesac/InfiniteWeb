@@ -1,5 +1,7 @@
 package org.infinite.web;
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,7 +19,7 @@ public class PageCstInit {
 
 	@Autowired
 	private	PagesCst pages;
-	
+		
 	public void setPages(PagesCst pages) {this.pages = pages;}
 	public PagesCst getPages() {return pages;}
 

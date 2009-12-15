@@ -8,7 +8,7 @@
 <style>
 #battleplan { list-style-type: none; margin: 0; padding: 0; }
 li{margin-top:3px;}
-.rem{width:30px;background-image: url("../imgs/web/btl/remove.png");background-repeat:no-repeat;background-position: center;}
+.rem{width:30px;background-image: url("${pages.IMG_WEB_PATH}btl/remove.png");background-repeat:no-repeat;background-position: center;}
 .nobut{width:30px;}
 </style>
 
@@ -17,7 +17,7 @@ li{margin-top:3px;}
 <table>
 	<tr>
 		<td width="80px">
-		<center><img src="../imgs/web/btl/sword.png" /></center>
+		<center><img src="${pages.IMG_WEB_PATH}btl/sword.png" /></center>
 		</td>
 		<td style="width: 200px;" valign="middle">
 		<center>
@@ -141,7 +141,7 @@ li{margin-top:3px;}
 			</div>
 		</td>
 		<td width="80px">
-			<center><img src="../imgs/web/btl/wand.png" /></center>
+			<center><img src="${pages.IMG_WEB_PATH}btl/wand.png" /></center>
 		</td>
 	</tr>
 </table>

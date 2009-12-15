@@ -12,41 +12,41 @@
 <div id="accordion" style="width:80%;margin-top:1%;inherit:false;">
 	<#list characterList as c>
 		<h3><a href="#" >${c.name}</a></h3>
-    	<div class="ui-state-highlight">
+    	<div>
     	   	
 			<table>
 				<tr>
 					<td style="text-align:center">
 						<div class="ui-widget ui-widget-content ui-corner-all" style="padding: 3px 10px 3px 10px;">
-						<img alt="${c.name}" src="${rc.getContextPath()}/imgs/player/${c.image}" width="100" ><br/>Level ${c.level}
+						<img alt="${c.name}" src="${pages.IMG_PC_PATH}${c.image}" width="100" ><br/>Level ${c.level}
 						</div>
 					</td>
 					<td>
 					<table>
 						<tr>
-							<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/life.gif" alt="Life Points" title="Life Points"></td>
+							<td><img src="${pages.IMG_WEB_PATH}stats/ico/life.gif" alt="Life Points" title="Life Points"></td>
 							<td><input readonly="readonly" type="text" size=8" value="${c.basePl}" /></td>
-							<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/mana.gif" alt="Magic Points" title="Magic Points"></td>
+							<td><img src="${pages.IMG_WEB_PATH}stats/ico/mana.gif" alt="Magic Points" title="Magic Points"></td>
 							<td><input readonly="readonly" type="text" size=8" value="${c.basePm}" /></td>
-							<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/action.gif" alt="Action Points" title="Action Points"></td>
+							<td><img src="${pages.IMG_WEB_PATH}stats/ico/action.gif" alt="Action Points" title="Action Points"></td>
 							<td><input readonly="readonly" type="text" size=8" value="${c.basePa}" /></td>
-							<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/charm.gif" alt="Charm Points" title="Charm Points"></td>
+							<td><img src="${pages.IMG_WEB_PATH}stats/ico/charm.gif" alt="Charm Points" title="Charm Points"></td>
 							<td><input readonly="readonly" type="text" size=8" value="${c.basePc}" /></td>
-							<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/gold.gif" alt="Gold" title="Gold"></td>
+							<td><img src="${pages.IMG_WEB_PATH}stats/ico/gold.gif" alt="Gold" title="Gold"></td>
 							<td><input readonly="readonly" type="text" size=8" value="${c.gold}" /></td>
-							<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/px.gif" alt="Experience Points" title="Experience Points"></td>
+							<td><img src="${pages.IMG_WEB_PATH}stats/ico/px.gif" alt="Experience Points" title="Experience Points"></td>
 							<td><input readonly="readonly" type="text" size=8" value="${c.px}" /></td>
 						</tr>
 						<tr>
-							<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/str.gif" alt="Strenght" title="Strenght"></td>
+							<td><img src="${pages.IMG_WEB_PATH}stats/ico/str.gif" alt="Strenght" title="Strenght"></td>
 							<td><input readonly="readonly" type="text" size=8" value="${c.baseStr}" /></td>
-							<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/int.gif" alt="Intelligence" title="Intelligence"></td>
+							<td><img src="${pages.IMG_WEB_PATH}stats/ico/int.gif" alt="Intelligence" title="Intelligence"></td>
 							<td><input readonly="readonly" type="text" size=8" value="${c.baseInt}" /></td>
-							<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/dex.gif" alt="Dexterity" title="Dexterity"></td>
+							<td><img src="${pages.IMG_WEB_PATH}stats/ico/dex.gif" alt="Dexterity" title="Dexterity"></td>
 							<td><input readonly="readonly" type="text" size=8" value="${c.baseDex}" /></td>
-							<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/cha.gif" alt="Charisma" title="Charisma"></td>
+							<td><img src="${pages.IMG_WEB_PATH}stats/ico/cha.gif" alt="Charisma" title="Charisma"></td>
 							<td><input readonly="readonly" type="text" size=8" value="${c.baseCha}" /></td>
-							<td><img src="${rc.getContextPath()}/imgs/web/stats/ico/map.gif" alt="Area" title="Area"></td>
+							<td><img src="${pages.IMG_WEB_PATH}stats/ico/map.gif" alt="Area" title="Area"></td>
 							<td colspan="3"><input readonly="readonly" type="text" size="20" value="${c.areaItem.name}" /></td>
 						</tr>
 					</table>
@@ -59,13 +59,13 @@
 	</#list>
     
     <h3><a href="#">Create new character</a></h3>
-    <div class="ui-state-highlight">
+    <div>
 		<form name="newchar" method="POST" action="${rc.getContextPath()}${pages.PAGE_CHARACTER}${pages.PAGE_EXT}" enctype="multipart/form-data">
 		<table>	
 		<tr>
 		<td>
 			<div class="ui-widget ui-widget-content ui-corner-all" style="padding: 3px 10px 3px 10px;">
-			<img class="avatar" alt="No Character" src="${rc.getContextPath()}/imgs/player/pg_void.jpg" width="100">
+			<img class="avatar" alt="No Character" src="${pages.IMG_WEB_PATH}player/pg_void.jpg" width="100">
 			</div>
 		</td>
 		<td>Character Name</td>

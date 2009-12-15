@@ -36,10 +36,11 @@
 		<#include "footer.dec">
 	</div>
 	
+	<#--
 	<div class="ui-layout-east 	ui-widget-content 	ui-corner-left">
 		<#include "../WEB-INF/ftl/player/barEast.ftl">
 	</div>
-	
+	-->
 	<div class="ui-layout-center ui-widget-content 	ui-corner-all" >
 		<center>		
 			<#include "error.dec">

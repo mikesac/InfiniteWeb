@@ -25,7 +25,7 @@
 			 	
 			</td>
 			<td width="200"  align="center">
-				<img width="100px" src="${rc.getContextPath()}/imgs/web/home/play.gif" alt="VS"/>
+				<img width="100px" src="${pages.IMG_WEB_PATH}home/play.gif" alt="VS"/>
 			</td>
 			<td width="390" align="left">
 				
@@ -47,7 +47,7 @@
 	
 	<table>
 		<tr>
-			<td style="width:100px; background-repeat:repeat-y; background-image: url(${rc.getContextPath()}/imgs/web/fight/celcol.gif);"></td>
+			<td style="width:100px; background-repeat:repeat-y; background-image: url(${pages.IMG_WEB_PATH}fight/celcol.gif);"></td>
 			<td>
 	
 	<table>
@@ -60,7 +60,7 @@
 						<img width="30px" height="30px" src="${pages.IMG_SPELL_PATH + round.attackImg + pages.IMG_SPELL_EXT}"	alt="${round.attackName}" />
 				    <#break>
 					<#case type_idle>
-						<img width="30px" height="30px" src="../imgs/web/fight/rest.jpg"	alt=" />
+						<img width="30px" height="30px" src="${pages.IMG_WEB_PATH}fight/rest.jpg"	alt=" />
 				    <#break>
 				    <#default>
 				    	<#list round.attackImg?split(",") as img>
@@ -70,7 +70,7 @@
 				</#switch>
 			</td>
 			<td>
-				<img width="30px" height="30px"	src="${rc.getContextPath()}/imgs/web/fight/<#if round.hit ><#if round.spellEffect>star<#else>ok</#if><#else>error</#if>.gif" alt="Attack result" />
+				<img width="30px" height="30px"	src="${pages.IMG_WEB_PATH}fight/<#if round.hit ><#if round.spellEffect>star<#else>ok</#if><#else>error</#if>.gif" alt="Attack result" />
 			</td>
 			<td>
 				<#switch round.roundType>
@@ -106,7 +106,7 @@
 		<#if round.endRound>
 			<tr>
 				<td>
-					<img width="30px" height="30px"	src="${rc.getContextPath()}/imgs/web/fight/dead.gif" alt="death" title="death" />
+					<img width="30px" height="30px"	src="${pages.IMG_WEB_PATH}fight/dead.gif" alt="death" title="death" />
 				</td>
 				<td colspan="2">
 					${round.defender} dies, ${round.attacker} gains	${round.gold} GP, ${round.items?size} items 
@@ -136,7 +136,7 @@
 	
 	
 	</td>
-			<td style="width:100px; background-repeat:repeat-y; background-image: url(${rc.getContextPath()}/imgs/web/fight/celcol.gif);"></td>
+			<td style="width:100px; background-repeat:repeat-y; background-image: url(${pages.IMG_WEB_PATH}fight/celcol.gif);"></td>
 		</tr>
 	</table>
 	

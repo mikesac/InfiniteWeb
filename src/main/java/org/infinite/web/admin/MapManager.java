@@ -91,7 +91,7 @@ public class MapManager {
 
 
 
-			String destPath = request.getSession().getServletContext().getRealPath("/imgs/maps/");
+			String destPath = getPages().getAbsoluteIMG_MAP_PATH();
 			String patchPath = destPath;
 			File dir = new File(patchPath +"/"+ areaName);
 			if(dir.exists())
@@ -102,7 +102,7 @@ public class MapManager {
 			for (int i = 0; i < areaY; i++) {
 				for (int j = 0; j < areaX; j++) {
 
-					String src = destPath + "/tmp/crop_" + i + j + ".jpg";
+					String src = getPages().getAbsoluteIMG_MAP_PATH_TMP() + "crop_" + i + j + ".jpg";
 					String dst = patchPath +"/"+ areaName+"/"+areaName+"_" + i + j + ".jpg";
 					File f = new File(src);
 					if(!f.exists()){
@@ -129,7 +129,7 @@ public class MapManager {
 			for (int i = 0; i < areaY; i++) {
 				List<String> xtiles = new ArrayList<String>();
 				for (int j = 0; j < areaX; j++) {
-					xtiles.add( request.getContextPath()+getPages().getIMG_MAP_PATH_TMP()+"crop_" + i + j + getPages().getIMG_MAP_EXT() );
+					xtiles.add( getPages().getIMG_MAP_PATH_TMP()+"crop_" + i + j + getPages().getIMG_MAP_EXT() );
 				}
 				tiles.add(xtiles);
 			}
@@ -201,7 +201,7 @@ public class MapManager {
 			String szPath ="";
 			if(is!=null && is.available()>0){
 
-				szPath = req.getSession().getServletContext().getRealPath("/imgs/maps/tmp");
+				szPath = getPages().getAbsoluteIMG_MAP_PATH_TMP();
 				ImageUtil.prepareMapStripes(is,nx,ny,szPath);
 			}
 
@@ -211,7 +211,7 @@ public class MapManager {
 			for (int i = 0; i < ny; i++) {
 				List<String> xtiles = new ArrayList<String>();
 				for (int j = 0; j < nx; j++) {
-					xtiles.add( req.getContextPath()+getPages().getIMG_MAP_PATH_TMP()+"crop_" + i + j + getPages().getIMG_MAP_EXT() );
+					xtiles.add( getPages().getIMG_MAP_PATH_TMP()+"crop_" + i + j + getPages().getIMG_MAP_EXT() );
 				}
 				tiles.add(xtiles);
 			}

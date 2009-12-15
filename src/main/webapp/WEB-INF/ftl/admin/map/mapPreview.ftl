@@ -39,7 +39,7 @@
 			<button onclick="togglePad()">Toggle Border</button>
 			<hr/>
 		Need more help? Consult <a href="http://wiki.github.com/mikesac/infiniteworld/expand-game-nuova-area">wiki</a>
-			<img src="../../imgs/web/admin/maps.gif" >
+			<img src="../${pages.IMG_WEB_PATH}admin/maps.gif" >
 			</@nestedpanel>
 		</td>
 	</tr>

@@ -18,6 +18,16 @@
 <table width="99%">
 	<tr>
 		<td width="50%" valign="top">
+			
+			<select id="dialogs_sel" onchange="loadDialog()">
+				<option value="new" selected="selected">New Dialog</option>
+				<#list dialogs as dialog>
+					<option value="${dialog}" >${dialog}</option>
+				</#list>
+			</select>
+			
+			<input type="text" id="filename" value="">
+			<button onclick="saveDialog()">Save</button>
 			<@nestedpanel icon="person" title="Dialog Structure" width=400 height=450>
 				<ul id="browser" class="filetree">
 					<li>
@@ -26,8 +36,8 @@
 					</li>
 				</ul>
 			</@nestedpanel>
-			<textarea id="json_txt" cols="40"></textarea>
-			<button onclick="getJSON()">test</button>
+			
+			<textarea id="json_txt" cols="40" style="display:none"></textarea>
 		</td>
 		<td width="50%">
 			<@nestedpanel icon="person" title="Add Npc sentence" width=450 height=150>
@@ -130,18 +140,15 @@ function addPcAnswer(){
 		nAnsw++;
 	
 		if( add_id!="" && document.getElementById(add_id)){
-			var add_id = document.getElementById(add_id).parentNode;
 			
 			var txt = document.forms['pc_answer'].answ_answer.value;
-	
 			var rl = document.forms['pc_answer'].answ_reqLevel.value;
 			var rq = document.forms['pc_answer'].answ_reqQuest.value;
 			var rqs = document.forms['pc_answer'].answ_reqQuestStatus.value;
 			var rid = document.forms['pc_answer'].answ_dialogId.value;
 			var rurl = document.forms['pc_answer'].answ_redirectUrl.value;
 	
-			var topbranch = $("<li><span class='answ' id='"+nodeId+"' rl='"+rl+"' rq='"+rq+"' rqs='"+rqs+"' rid='"+rid+"' rurl='"+rurl+"'>"+txt+"</span></li>").appendTo(add_id);
-			$("#browser").treeview();
+			addPcNode(nodeId,rl,rq,rqs,rid,rurl,txt,add_id);
 	
 			document.forms['pc_answer'].reset();
 			document.getElementById("editA").disabled=false;
@@ -154,6 +161,11 @@ function addPcAnswer(){
 	initEvents();
 }
 
+function addPcNode(nodeId,rl,rq,rqs,rid,rurl,txt,add_id){
+	var add_id = document.getElementById(add_id).parentNode;
+	var topbranch = $("<li><span class='answ' id='"+nodeId+"' rl='"+rl+"' rq='"+rq+"' rqs='"+rqs+"' rid='"+rid+"' rurl='"+rurl+"'>"+txt+"</span></li>").appendTo(add_id);
+	$("#browser").treeview();
+}
 
 function editPcAnswer(){
 	var nodeId = document.forms['pc_answer'].answ_id.value;			
@@ -163,7 +175,6 @@ function editPcAnswer(){
 	var rqs = document.forms['pc_answer'].answ_reqQuestStatus.value;
 	var rid = document.forms['pc_answer'].answ_dialogId.value;
 	var rurl = document.forms['pc_answer'].answ_redirectUrl.value;
-	
 	
 	var oldNode = document.getElementById(nodeId)
 	var parent = oldNode.parentNode;
@@ -196,12 +207,16 @@ function addNpcDialog(){
 	nAsk++;
 	var txt = document.forms['npcdialog'].npc_sentence.value;				
 				
-	var ask = $("<li><span class='ask' id='"+nodeId+"'>"+txt+"</span></li>").appendTo("#base_ul");
-	$("#browser").treeview({add:ask});
+	addNpcNode(nodeId,txt);
 	initEvents();
 	document.forms['npcdialog'].reset();
 	document.getElementById("editQ").disabled=true;
 	document.getElementById("delQ").disabled=true;
+}
+
+function addNpcNode(nodeId,txt){
+	var ask = $("<li><span class='ask' id='"+nodeId+"'>"+txt+"</span></li>").appendTo("#base_ul");
+	$("#browser").treeview({add:ask});
 }
 
 function editNpcDialog()
@@ -260,7 +275,65 @@ function selectNode(id){
 	
 }
 
+function saveDialog(){
 
+	if( confirm("Are you sure you want to save? Existing dialogs will be overwritten.") )
+	{
+	getJSON();
+	
+	$.ajax({
+			type: 'post',
+			url: "${rc.getContextPath()+pages.ADMIN_DIALOG}.json",
+		  	data: ({filename : document.getElementById('filename').value, data:document.getElementById('json_txt').value}),		  
+		  	error: function(XMLHttpRequest, textStatus, errorThrown){
+		    	alert("Error saving dialog:"+textStatus+" "+errorThrown)
+		  	},
+		  	success:function(XMLHttpRequest, textStatus, errorThrown){
+		    	alert("Dialog saved");
+		    	document.location = document.location;
+		  	}
+		});
+	}
+
+}
+
+function loadDialog(){
+
+	var el = document.getElementById('dialogs_sel');
+
+	if(el.selectedIndex==0){
+		document.getElementById('filename').value = "";
+		nAsk = 0;
+		nAnsw = 0;
+		document.getElementById("base_ul").innerHTML="";
+		return;
+	}
+	var dialog = el.options[el.selectedIndex].value;
+	
+	document.getElementById('filename').value = dialog;
+	
+	$.getJSON("${rc.getContextPath()+pages.ADMIN_DIALOG}.json", 
+		{ name: dialog },
+		function(json){
+			nAsk = 0;
+			nAnsw = 0;
+			document.getElementById("base_ul").innerHTML="";
+			for(var i=0;i<json.dialog.length;i++)
+			{
+				addNpcNode(json.dialog[i].id,json.dialog[i].sentence);
+				nAsk++;
+				for(var j=0;j<json.dialog[i].answer.length;j++)
+				{
+					var n = json.dialog[i].answer[j];					
+					addPcNode(json.dialog[i].id+"_"+j,n.reqLevel,n.reqQuest,n.reqQuestStatus,n.dialogId,n.redirectUrl,n.answer,json.dialog[i].id);
+					nAnsw++;
+				}
+			}
+			initEvents();
+		}
+	);	
+	
+}
 
 
 function getJSON(){
@@ -297,11 +370,6 @@ function getJSON(){
 	json += "]}";
 	
 	document.getElementById('json_txt').value = json;
-	console.log(json);
-	
-	
-	
-	
 	
 }
 
