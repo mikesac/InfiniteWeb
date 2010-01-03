@@ -52,8 +52,12 @@ public class PagesCst {
 	private final String ADMIN_MAPLIST 		= "/admin/map/listArea";
 	private final String ADMIN_AREAITEMS 	= "/admin/area/areaItem";
 	private final String ADMIN_JSONAREAITEMS 	= "/admin/area/jsonAreaItem";
-	private final String ADMIN_SPELL 		= "/admin/spell/spell";
+	private final String ADMIN_SPELL 			= "/admin/spell/spell";
 	private final String ADMIN_SPELL_JSON 		= "/admin/spell/spellJSON";
+	private final String ADMIN_ITEM 			= "/admin/item/item";
+	private final String ADMIN_ITEM_JSON 		= "/admin/item/itemJSON";
+	private final String ADMIN_NPC				= "/admin/npc/npc";
+	private final String ADMIN_NPC_JSON 		= "/admin/npc/npcJSON";
 
 	
 	//REFERENCES
@@ -106,6 +110,9 @@ public class PagesCst {
 	
 	private final String DATA_NPC_EXT= ".json";
 	private final String DATA_NPC_PATH= "/dialogs/npc/";
+	
+	private final String DATA_MONST_EXT= ".json";
+	private final String DATA_MONST_PATH= "/dialogs/monst/";
 	
 	
 	
@@ -187,6 +194,9 @@ public class PagesCst {
 	public String getIMG_ITEM_PATH() {
 		return getRelativeDataPath() + IMG_ITEM_PATH;
 	}
+	public String getAbsoluteIMG_ITEM_PATH() {
+		return getAbsoluteDataPath() + IMG_ITEM_PATH;
+	}
 	public String getIMG_SPELL_EXT() {
 		return IMG_SPELL_EXT;
 	}
@@ -202,11 +212,23 @@ public class PagesCst {
 	public String getIMG_MONST_PATH() {
 		return getRelativeDataPath() + IMG_MONST_PATH;
 	}
+	public String getAbsoluteIMG_MONST_PATH() {
+		return getAbsoluteDataPath() + IMG_MONST_PATH;
+	}
 	public String getIMG_NPC_EXT() {
 		return IMG_NPC_EXT;
 	}
 	public String getIMG_NPC_PATH() {
 		return getRelativeDataPath() + IMG_NPC_PATH;
+	}
+	public String getAbsoluteIMG_NPC_PATH() {
+		return getAbsoluteDataPath() + IMG_NPC_PATH;
+	}
+	public String getAbsoluteIMG_NPC_PATH_BIG() {
+		return getAbsoluteDataPath() + IMG_NPC_PATH_BIG;
+	}
+	public String getAbsoluteIMG_MONST_PATH_BIG() {
+		return getAbsoluteDataPath() + IMG_MONST_PATH_BIG;
 	}
 	public String getCONTEXT_CHARACTER() {
 		return CONTEXT_CHARACTER;
@@ -268,17 +290,12 @@ public class PagesCst {
 		return new RedirectView( getPageUrl(request, page));
 	}
 	
-	public Object[] initController(Character c, ModelMap model, HttpServletRequest req){
+public Object[] initController(Character c, ModelMap model, HttpServletRequest req){
 		
 		Object[] out = new Object[2];
-		String error = (String) req.getSession().getAttribute( getCONTEXT_ERROR() );
 		
-		if(error!=null){
-			model.addAttribute(getCONTEXT_ERROR(), error);
-			req.getSession().removeAttribute(getCONTEXT_ERROR());
-			
-		}
-		model.addAttribute(getCONTEXT_PAGES(), this);
+		model = initController(model, req);
+		
 		c = (Character) req.getSession().getAttribute(getCONTEXT_CHARACTER());
 		
 		if(c==null){
@@ -292,6 +309,21 @@ public class PagesCst {
 		}		
 		return out;
 	}
+
+public ModelMap initController(ModelMap model, HttpServletRequest req){
+	
+	String error = (String) req.getSession().getAttribute( getCONTEXT_ERROR() );
+	
+	if(error!=null){
+		model.addAttribute(getCONTEXT_ERROR(), error);
+		req.getSession().removeAttribute(getCONTEXT_ERROR());
+		
+	}
+	model.addAttribute(getCONTEXT_PAGES(), this);
+	
+	return model;
+}
+
 	public String getIMG_MONST_PATH_BIG() {
 		return getRelativeDataPath() + IMG_MONST_PATH_BIG;
 	}
@@ -328,6 +360,12 @@ public class PagesCst {
 	public String getDATA_NPC_PATH() {
 		return getAbsoluteDataPath() + DATA_NPC_PATH;
 	}
+	public String getDATA_MONST_EXT() {
+		return DATA_MONST_EXT;
+	}
+	public String getDATA_MONST_PATH() {
+		return getAbsoluteDataPath() + DATA_MONST_PATH;
+	}
 	public String getIMG_WEB_EXT() {
 		return IMG_WEB_EXT;
 	}
@@ -340,8 +378,23 @@ public class PagesCst {
 	public String getIMG_PC_PATH() {
 		return getRelativeDataPath() + IMG_PC_PATH;
 	}
+	public String getAbsoluteIMG_PC_PATH() {
+		return getAbsoluteDataPath() + IMG_PC_PATH;
+	}
 	public String getADMIN_SPELL_JSON() {
 		return ADMIN_SPELL_JSON;
+	}
+	public String getADMIN_ITEM() {
+		return ADMIN_ITEM;
+	}
+	public String getADMIN_ITEM_JSON() {
+		return ADMIN_ITEM_JSON;
+	}
+	public String getADMIN_NPC() {
+		return ADMIN_NPC;
+	}
+	public String getADMIN_NPC_JSON() {
+		return ADMIN_NPC_JSON;
 	}
 	
 	

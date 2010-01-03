@@ -146,5 +146,4 @@
 		<url-pattern>/jcaptcha</url-pattern>
 	</servlet-mapping>
 
-
 </web-app>

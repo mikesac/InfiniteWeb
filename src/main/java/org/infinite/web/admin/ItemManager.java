@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.infinite.db.dao.DaoManager;
+import org.infinite.db.dto.Item;
 import org.infinite.db.dto.Spell;
 import org.infinite.db.dto.TomcatRoles;
 import org.infinite.util.GenericUtil;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class SpellManager {
+public class ItemManager {
 
 	@Autowired
 	private	PagesCst pages;
@@ -36,8 +37,8 @@ public class SpellManager {
 	public void setDaoManager(DaoManager dao) {this.daoManager = dao;}
 	public DaoManager getDaoManager() { return daoManager; }
 
-	@RequestMapping(value="/admin/spell/spell.html",method = RequestMethod.GET)
-	public ModelAndView initSpells(HttpServletRequest request, HttpServletResponse resp, ModelMap model)
+	@RequestMapping(value="/admin/item/item.html",method = RequestMethod.GET)
+	public ModelAndView initItems(HttpServletRequest request, HttpServletResponse resp, ModelMap model)
 	{
 		String userName = request.getUserPrincipal().getName();		
 		TomcatRoles role = getDaoManager().getUserRole(userName);		
@@ -48,40 +49,37 @@ public class SpellManager {
 		model = getPages().initController(model, request);
 		
 		model = prepareModel(request, model);
-		return new ModelAndView( getPages().getADMIN_SPELL(),model );
+		return new ModelAndView( getPages().getADMIN_ITEM(),model );
 	}
 
 
 
-	@RequestMapping(value="/admin/spell/spell.json",method = RequestMethod.GET)
+	@RequestMapping(value="/admin/item/item.json",method = RequestMethod.GET)
 	public ModelAndView getJson(
 			HttpServletRequest request, HttpServletResponse resp, ModelMap model,
 			@RequestParam(value="id",required=true) int id,
-			@RequestParam(value="f",required=false) Integer type
+			@RequestParam(value="f",required=false) Integer itemType
 	)
 	{
-
 		if(id<0){
-			ArrayList<Spell> list = getDaoManager().getSpellListByType(type);
-			model.addAttribute("spells", list);
+			ArrayList<Item> list = getDaoManager().getItemListByType(itemType);
+			model.addAttribute("items", list);
 			model.addAttribute("grid", true);
 			model.addAttribute("pages", getPages());
 		}
 		else{
-			Spell s = getDaoManager().getSpellById(id);
-			model.addAttribute("s",s);
+			Item it = getDaoManager().getItemById(id);
+			model.addAttribute("i",it);
 			model.addAttribute("grid", false);
 		}
 
-		return new ModelAndView( getPages().getADMIN_SPELL_JSON(),model );
+		return new ModelAndView( getPages().getADMIN_ITEM_JSON(),model );
 	}
 
-	
-	
 
 
-	@RequestMapping(value="/admin/spell/spell.html",method = RequestMethod.POST)
-	public ModelAndView saveSpell(HttpServletRequest request, HttpServletResponse resp, ModelMap model,
+	@RequestMapping(value="/admin/item/item.html",method = RequestMethod.POST)
+	public ModelAndView saveItem(HttpServletRequest request, HttpServletResponse resp, ModelMap model,
 			@RequestParam(value="act",required=true) int act,
 			@RequestParam(value="data",required=true) String data)
 	{
@@ -92,25 +90,25 @@ public class SpellManager {
 
 			JSONObject obj =(JSONObject)parser.parse(data);
 
-			int id = GenericUtil.toInt( (String) obj.get("s_id"), -1);
-			Spell s;
+			int id = GenericUtil.toInt( (String) obj.get("i_id"), -1);
+			Item it;
 			switch (act) {
 			case 0: //save
-				s= new Spell();
-				s = (Spell) ControllerUtils.populateObject(s,obj,"s_");
-				getDaoManager().create(s);
-				msg = "New Spell ["+s.getName()+"] Created";
+				it= new Item();
+				it = (Item) ControllerUtils.populateObject(it,obj,"i_");
+				getDaoManager().create(it);
+				msg = "New Item ["+it.getName()+"] Created";
 				break;
 			case 1:	//edit					
-				s = getDaoManager().getSpellById(id);
-				s = (Spell) ControllerUtils.populateObject(s,obj,"s_");
-				getDaoManager().update(s);
-				msg = "Spell ["+s.getName()+"] Updated";
+				it = getDaoManager().getItemById(id);
+				it = (Item) ControllerUtils.populateObject(it,obj,"i_");
+				getDaoManager().update(it);
+				msg = "Item ["+it.getName()+"] Updated";
 				break;				
 			case 2:	//delete
-				s = getDaoManager().getSpellById(id);
-				getDaoManager().delete( s );
-				msg = "Spell Deleted";
+				it = getDaoManager().getItemById(id);
+				getDaoManager().delete( it );
+				msg = "Item Deleted";
 				break;
 
 			default:
@@ -127,43 +125,37 @@ public class SpellManager {
 
 		model = prepareModel(request, model);
 
-		return new ModelAndView( getPages().getADMIN_SPELL(),model );
+		return new ModelAndView( getPages().getADMIN_ITEM(),model );
 	}
-
 
 	
 
-
-
-	@RequestMapping(value="/admin/spell/spell.json",method = RequestMethod.POST)
+	@RequestMapping(value="/admin/item/item.json",method = RequestMethod.POST)
 	public ModelAndView uploadImage(HttpServletRequest request, HttpServletResponse resp, ModelMap model)
 	{
 		try{
 			ControllerUtils.uploadAndResizeImage(request,
-					getPages().getAbsoluteIMG_SPELL_PATH(),null,
-					getPages().getIMG_SPELL_EXT().substring(1),
+					getPages().getAbsoluteIMG_ITEM_PATH(),null,
+					getPages().getIMG_ITEM_EXT().substring(1),
 					56,56);
-			
-
 		}
 		catch (Exception e) {
-			return new ModelAndView( getPages().getRedirect(request,getPages().getADMIN_SPELL(),e.getMessage()) );
+			return new ModelAndView( getPages().getRedirect(request,getPages().getADMIN_ITEM(),e.getMessage()) );
 		}
 
-		return new ModelAndView( getPages().getRedirect(request,getPages().getADMIN_SPELL(),"File succesfully uploaded!") );
+		return new ModelAndView( getPages().getRedirect(request,getPages().getADMIN_ITEM(),"File succesfully uploaded!") );
 	}
 	
 
-
-
-
+	
 	private ModelMap prepareModel(HttpServletRequest request, ModelMap model) 
 	{
-		ArrayList<String> l = ControllerUtils.getFileList(getPages().getAbsoluteIMG_SPELL_PATH());
+		
+		ArrayList<String> l = ControllerUtils.getFileList(getPages().getAbsoluteIMG_ITEM_PATH());
 		model.addAttribute("images", l);
-
-		ArrayList<Spell> list = getDaoManager().getSpellList();
-		model.addAttribute("spells", list);
+		
+		ArrayList<Spell> slist = getDaoManager().getSpellList();
+		model.addAttribute("spells", slist);
 
 		model.addAttribute(getPages().getCONTEXT_PAGES(), getPages());
 		model.addAttribute("base", request.getContextPath());

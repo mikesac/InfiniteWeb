@@ -16,7 +16,7 @@
 			<@panel title="Manage Map Areas" icon="person" url="${base + pages.ADMIN_AREAITEMS + pages.PAGE_EXT}?areaid=1" img="${pages.IMG_WEB_PATH}/admin/areas.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
 		</td>
 		<td>
-			<@panel title="Manage Items" icon="person" url="" img="${pages.IMG_WEB_PATH}/admin/items.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
+			<@panel title="Manage Items" icon="person" url="${base + pages.ADMIN_ITEM + pages.PAGE_EXT}" img="${pages.IMG_WEB_PATH}/admin/items.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
 		</td>
 		<td>
 			<@panel title="Manage Spells" icon="person" url="${base + pages.ADMIN_SPELL + pages.PAGE_EXT}" img="${pages.IMG_WEB_PATH}/admin/spells.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
@@ -24,7 +24,7 @@
 	</tr>
 	<tr>
 		<td>
-			<@panel title="Manage Monsters" icon="person" url="" img="${pages.IMG_WEB_PATH}/admin/monsters.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
+			<@panel title="Manage Monsters" icon="person" url="${base + pages.ADMIN_NPC + pages.PAGE_EXT}" img="${pages.IMG_WEB_PATH}/admin/monsters.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
 		</td>
 		<td>
 			<@panel title="Manage NPCs" icon="person" url="" img="${pages.IMG_WEB_PATH}/admin/NPCs.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />

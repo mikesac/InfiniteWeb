@@ -1,7 +1,7 @@
 <#include "../../common/macro.ftl" >
 <html>
 <head>
-	<title>Spells Editor</title>
+	<title>Items Editor</title>
 </head>
 
 <body>
@@ -13,30 +13,30 @@ td { white-space: nowrap; text-align:right;}
 <table width="100%">
 	<tr>
 		<td width="70%" valign="top">
-			<@nestedpanel icon="person" title="Spell Data" width=950 height=350>
+			<@nestedpanel icon="person" title="Item Data" width=950 height=350>
 			
 				<form name="formedit" id="formedit">
 					<table width="900px">
 					<tr>
 						<td>Id</td>
-						<td class="ins"><input type="text" value="" size=3 name="s_id" readonly="readonly"></td>
+						<td class="ins"><input type="text" value="" size=3 name="i_id" readonly="readonly"></td>
 						
 						<td></td>
 						<td>Name</td>
-						<td colspan=2 class="ins"><input type="text" value="" name="s_name"></td>
+						<td colspan=2 class="ins"><input type="text" value="" name="i_name"></td>
 						
 						<td rowspan=2 colspan=2 align="right">
-							<img src="../${pages.IMG_WEB_PATH}admin/spells.gif">
+							<img width=100 src="../${pages.IMG_WEB_PATH}admin/items.gif">
 						</td>
 						
 					</tr>
 					<tr>
 						<td>Description</td>
-						<td colspan=2 class="ins"><textarea name="s_description"></textarea></td>
+						<td colspan=2 class="ins"><textarea name="i_description"></textarea></td>
 						
 						<td>Image</td>
 						<td class="ins">
-							<select name="s_image" onchange="updatePreview()">
+							<select name="i_image" onchange="updatePreview()">
 								<option value="">No Image</option>
 								<#list images as img>
 								<option value="${img}">${img}</option>
@@ -51,73 +51,81 @@ td { white-space: nowrap; text-align:right;}
 					</tr>
 					<tr>
 												
-						<td>Magic Points</td>
-						<td class="ins"><input type="text" value="0" size=3 name="s_costMp"></td>
+						<td>Action Points</td>
+						<td class="ins"><input type="text" value="0" size=3 name="i_costAp"></td>
 						
 						<td>Price</td>
-						<td class="ins"><input type="text" value="0" size=3 name="s_price"></td>
+						<td class="ins"><input type="text" value="0" size=3 name="i_price"></td>
 						
 						
 					</tr>
 					
 					<tr>
 						<td>Required Lev</td>
-						<td class="ins"><input type="text" value="0" size=3 name="s_reqLev"></td>
+						<td class="ins"><input type="text" value="0" size=3 name="i_reqLev"></td>
 						
-						<td>Spell Level</td>
-						<td class="ins"><input type="text" value="0" size=3 name="s_level"></td>
+						<td>Item Level</td>
+						<td class="ins"><input type="text" value="0" size=3 name="i_level"></td>
 						
-						<td>Duration</td>
-						<td class="ins"><input type="text" value="0" size=3 name="s_duration"></td>
+						<td>Durability</td>
+						<td class="ins"><input type="text" value="0" size=3 name="i_durability"></td>
 						
 						<td>Initiative</td>
-						<td class="ins"><input type="text" value="0" size=3 name="s_initiative"></td>
+						<td class="ins"><input type="text" value="0" size=3 name="i_initiative"></td>
 						
 					</tr>
 					
 					<tr>
 						<td>Damage</td>
-						<td class="ins"><input type="text" value="0d0" size=3 name="s_damage"></td>
+						<td class="ins"><input type="text" value="0d0" size=3 name="i_damage"></td>
 						
-						<td>Saving Throw</td>
-						<td class="ins"><input type="text" value="0" size=3 name="s_savingthrow"></td>
+						<td>Cast Spell</td>
+						<td class="ins">
+							<select name="i_spell" style="width:100px">
+								<#list spells as sp>
+								<option value="${sp.id}">${sp.name}</option>
+								</#list>
+							</select>
+						</td>
 						
-						<td>Spell Type</td>
+						<td>Item Type</td>
 						<td colspan="3" class="ins">
-							<select name="s_spelltype">
-								<option value="0">Attack</option>
-								<option value="1">Healing</option>
-								<option value="2">Protection</option>
+							<select name="i_type">
+								<option value="0">No Item</option>
+								<option value="1">Weapon</option>
+								<option value="2">Shield</option>
+								<option value="3">Armour</option>
+								<option value="10">Quest Item</option>
 							</select>
 						</td>
 					</tr>
 										
 					<tr>
 						<td>Required Str</td>
-						<td class="ins"><input type="text" value="0" size=3 name="s_reqStr"></td>
+						<td class="ins"><input type="text" value="0" size=3 name="i_reqStr"></td>
 						
 						<td>Required Int</td>
-						<td class="ins"><input type="text" value="0" size=3 name="s_reqInt"></td>
+						<td class="ins"><input type="text" value="0" size=3 name="i_reqInt"></td>
 						
 						<td>Required Dex</td>
-						<td class="ins"><input type="text" value="0" size=3 name="s_reqDex"></td>
+						<td class="ins"><input type="text" value="0" size=3 name="i_reqDex"></td>
 						
 						<td>Required Cha</td>
-						<td class="ins"><input type="text" value="0" size=3 name="s_reqCha"></td>
+						<td class="ins"><input type="text" value="0" size=3 name="i_reqCha"></td>
 					</tr>
 					
 					<tr>
 						<td>Modified Str</td>
-						<td class="ins"><input type="text" value="0" size=3 name="s_modStr"></td>
+						<td class="ins"><input type="text" value="0" size=3 name="i_modStr"></td>
 						
 						<td>Modified Int</td>
-						<td class="ins"><input type="text" value="0" size=3 name="s_modInt"></td>
+						<td class="ins"><input type="text" value="0" size=3 name="i_modInt"></td>
 						
 						<td>Modified Dex</td>
-						<td class="ins"><input type="text" value="0" size=3 name="s_modDex"></td>
+						<td class="ins"><input type="text" value="0" size=3 name="i_modDex"></td>
 						
 						<td>Modified Cha</td>
-						<td class="ins"><input type="text" value="0" size=3 name="s_modCha"></td>
+						<td class="ins"><input type="text" value="0" size=3 name="i_modCha"></td>
 					</tr>					
 					</table>
 					
@@ -126,7 +134,7 @@ td { white-space: nowrap; text-align:right;}
 				<table>
 					<tr>
 						<td>
-							<form id="formsend" name="formsend" method="POST" action="${rc.getContextPath() + pages.ADMIN_SPELL+ pages.PAGE_EXT}">
+							<form id="formsend" name="formsend" method="POST" action="${rc.getContextPath() + pages.ADMIN_ITEM+ pages.PAGE_EXT}">
 								<input type="hidden" name="data" value="">
 								<input type="hidden" name="act" value="0">
 							</form>
@@ -145,9 +153,9 @@ td { white-space: nowrap; text-align:right;}
 				</table>		
 			</@nestedpanel>
 			<br/>
-			<@nestedpanel icon="person" title="Upload New Spell Icon" width=950 height=80>
+			<@nestedpanel icon="person" title="Upload New Icon" width=950 height=80>
 			
-			<form name="uploadImage" method="POST" action="${rc.getContextPath() + pages.ADMIN_SPELL}.json" enctype="multipart/form-data">
+			<form name="uploadImage" method="POST" action="${rc.getContextPath() + pages.ADMIN_ITEM}.json" enctype="multipart/form-data">
 				<table>
 				<tr>
 					<td>Icon name</td>
@@ -160,8 +168,8 @@ td { white-space: nowrap; text-align:right;}
 				<tr>
 					<td colspan=5>
 					<center>
-					<span style="font-size:small;">Use this form to upload new spells icon, once uploaded the icon will be available in the "image" combo on the main form.
-					<br/>Uploaded Images will be automatically converted to ${pages.IMG_SPELL_EXT} format an resized to fit game needs.</span>
+					<span style="font-size:small;">Use this form to upload new items icon, once uploaded the icon will be available in the "image" combo on the main form.
+					<br/>Uploaded Images will be automatically converted to ${pages.IMG_ITEM_EXT} format an resized to fit game needs.</span>
 					</center>
 					</td>
 				</tr>
@@ -171,14 +179,15 @@ td { white-space: nowrap; text-align:right;}
 			</@nestedpanel>
 		</td>
 		<td width="30%">
-				<table>
+			<table>
 				<tr>
 					<td>Filter
 						<select id="list_type" onChange="reloadGrid()">
-							<option value="-1">All Spells</option>
-							<option value="0">Attack</option>
-							<option value="1">Healing</option>
-							<option value="2">Protection</option>
+							<option value="-1">All Items</option>
+							<option value="1">Weapon</option>
+							<option value="2">Shield</option>
+							<option value="3">Armour</option>
+							<option value="10">Quest Item</option>
 						</select>
 					</td>
 				<tr>
@@ -202,18 +211,18 @@ function reloadGrid()
 	var el = document.getElementById('list_type');
 	f= el.options[el.selectedIndex].value;
 	
-	$('#list').setGridParam({url:"${rc.getContextPath() + pages.ADMIN_SPELL}.json?id=-99&f="+f});
+	$('#list').setGridParam({url:"${rc.getContextPath() + pages.ADMIN_ITEM}.json?id=-99&f="+f});
     $('#list').trigger("reloadGrid");
 }
 
-
 function initGrid()
 {
+
 	var el = document.getElementById('list_type');
 	f= el.options[el.selectedIndex].value;
 	
 	jQuery("#list").jqGrid({
-		  url:"${rc.getContextPath() + pages.ADMIN_SPELL}.json?id=-99&f="+f, 
+		 url:"${rc.getContextPath() + pages.ADMIN_ITEM}.json?id=-99&f="+f, 
 		 datatype: "json", 
 		 width:380,
 		 forceFit:true,
@@ -221,21 +230,21 @@ function initGrid()
 		 height: 500, 
 		 colNames:['Image', 'Name'], 
 		 colModel:[ 
-		 	{name:'img',index:'img', width:60, sorttype:"string",resizable:false}, 
-		 	{name:'name',index:'name', sorttype:"string",resizable:false}, 
+		 	{name:'img', width:60, sorttype:"string",resizable:false}, 
+		 	{name:'name', sorttype:"string",resizable:false}, 
 		 ], 
-		 caption: "Spell List" }); 
-		  
+		 caption: "Item List" }); 
+		 
 }
 
 function loadData(id){
 
+	
 	$.getJSON( 
-		"${rc.getContextPath() + pages.ADMIN_SPELL}.json?id="+id,
+		"${rc.getContextPath() + pages.ADMIN_ITEM}.json?id="+id,
         function(jdata){
         	for(var i=0;i<document.forms['formedit'].elements.length;i++){
 					var name = document.forms['formedit'].elements[i].name;
-
 					if(name==""){
 						continue;
 					}
@@ -280,10 +289,10 @@ function send(act){
 
 function updatePreview(){
 
-	var preview = document.forms['formedit'].s_image.value;
+	var preview = document.forms['formedit'].i_image.value;
 
 	if(preview!=""){
-		preview = "${pages.IMG_SPELL_PATH}"+preview+"${pages.IMG_SPELL_EXT}"
+		preview = "${pages.IMG_ITEM_PATH}"+preview+"${pages.IMG_ITEM_EXT}"
 	}
 
 	document.getElementById('preview').style.backgroundImage="url("+preview+")";

@@ -45,6 +45,8 @@ public class DialogManager {
 			return new ModelAndView( getPages().getRedirect(request,getPages().getPAGE_ROOT(),"You cannot access this area!") );
 		}
 
+		model = getPages().initController(model, request);
+		
 		File dialogFolder = new File( getPages().getDATA_NPC_PATH());
 
 		if(dialogFolder.exists() && dialogFolder.isDirectory()){

@@ -1,5 +1,7 @@
 package org.infinite.web.account;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -17,6 +19,7 @@ import org.infinite.db.dao.DaoManager;
 import org.infinite.db.dto.AreaItem;
 import org.infinite.db.dto.Player;
 import org.infinite.db.dto.TomcatUsers;
+import org.infinite.util.ImageUtil;
 import org.infinite.web.utils.PagesCst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,7 +65,7 @@ public class CharactersList {
 
 		// Parse the request
 		try {
-			List<FileItem> items = upload.parseRequest(request);
+			List<?> items = upload.parseRequest(request);
 
 			String charName = "";
 			String charPic = "pg_void.png";
@@ -70,7 +73,7 @@ public class CharactersList {
 			String szFileName = "";
 			String szUser = request.getRemoteUser();
 
-			Iterator iter = items.iterator();			
+			Iterator<?> iter = items.iterator();			
 			while (iter.hasNext()) {
 				FileItem item = (FileItem) iter.next();
 
@@ -91,21 +94,25 @@ public class CharactersList {
 			if(is!=null && is.available()>0){
 				charPic = charName+"_"+szUser;
 			
-				String szPath = request.getSession().getServletContext().getRealPath("/imgs/player/");
+				String szPath = getPages().getAbsoluteIMG_PC_PATH();
 				szFileName = szFileName.substring( szFileName.lastIndexOf(".") );
 				charPic += szFileName;
 				szFileName = szPath +"/"+ charPic;
 
+				BufferedImage img = ImageUtil.getImagefromStream(is);
+				img = ImageUtil.scaleImage(img, 100, 100);
+				ByteArrayOutputStream baos = ImageUtil.setImageToStream(img, "jpg");
+				
+				
 				File f = new File(szFileName);
 				f.createNewFile();
 				FileOutputStream fos = new FileOutputStream(f);
-				byte[] buf = new byte[1024];
-
-				while( is.read(buf) >0 ){
-					fos.write(buf);
-				}
+				baos.writeTo(fos);
+				
 				fos.flush();
+				baos.flush();
 				fos.close();
+				baos.close();
 				is.close();
 			}
 

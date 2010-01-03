@@ -1,5 +1,5 @@
 <#if error?exists && error!="">
-<div class="ui-widget" style="width:80%;margin-top:1%;">
+<div class="ui-widget" style="width:80%;margin-top:1%;" id="errmsg">
 	<div class="ui-state-error ui-corner-all" style="padding: 0pt 0.3em;"> 
 		<p>
 			<span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span> 
@@ -7,6 +7,9 @@
 		</p>
 	</div>
 </div>
+<script>
+ setTimeout( '$("#errmsg").fadeOut("normal", function () {$(this).remove();})', 5000) ;
+</script>
 <#else>
 <br/>
 </#if>
