@@ -41,7 +41,12 @@ public class PagesCst {
 	private final String PAGE_BATTLEPLAN= "/player/battleplan";
 	private final String PAGE_NPCDIALOG= "/player/npcdialog";
 	private final String PAGE_SHOP= "/player/shop";
+	private final String PAGE_SHOP_JSON= "/player/shopJSON";
 	private final String PAGE_SSHOP= "/player/sshop";
+	
+	private final String PAGE_QUEST_ACTION	= "/player/quest_act";
+	private final String PAGE_QUEST_STATUS	= "/player/quest_stat";
+	
 	
 	//PAGES - admin section
 	private final String ADMIN_HOME 		= "/admin/home";
@@ -395,6 +400,15 @@ public ModelMap initController(ModelMap model, HttpServletRequest req){
 	}
 	public String getADMIN_NPC_JSON() {
 		return ADMIN_NPC_JSON;
+	}
+	public String getPAGE_QUEST_ACTION() {
+		return PAGE_QUEST_ACTION;
+	}
+	public String getPAGE_QUEST_STATUS() {
+		return PAGE_QUEST_STATUS;
+	}
+	public String getPAGE_SHOP_JSON() {
+		return PAGE_SHOP_JSON;
 	}
 	
 	

@@ -71,11 +71,14 @@ public class FightMapController {
 	public ModelAndView processFight(HttpServletRequest req, HttpServletResponse response,  ModelMap model){
 
 		try{
-			model.addAttribute(getPages().getCONTEXT_PAGES(), getPages());
-			Character c = (Character) req.getSession().getAttribute(getPages().getCONTEXT_CHARACTER());
-
-			if(c==null){
-				return new ModelAndView( getPages().getRedirect(req,getPages().getPAGE_ROOT(),"Character not found! Please re-login.") );
+			Character c = null;
+			Object[] out = getPages().initController(c, model, req);
+			if(out[0] instanceof Character){
+				c = (Character) out[0];
+				model = (ModelMap)out[1];
+			}
+			else{
+				return (ModelAndView)out[0];
 			}		
 
 			//Party one is player, party 2 depends on map area				

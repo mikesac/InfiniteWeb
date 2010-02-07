@@ -74,16 +74,16 @@
 	</tr>
 </table>
 
-<#if Session.character.nexRegenereationTime?int!=0 >
-	 
-	 <tr><td colspan="2" align="center" class="smallfont" id="reg">Regenerate in <span id="regtime2"></span><span style="display:none" id="regtime1">
-	 ${Session.character.nexRegenereationTime?string("0")}
-	 </span></td></tr> 
-	 </#if>
-	 
 <center>
 
 <table>
+	<tr>
+		<td colspan="2" align="center" class="smallfont" id="reg">
+			<#if Session.character.nexRegenereationTime?int&gt;0 >
+	 		 Regenerate in <span id="regtime2"></span><span style="display:none" id="regtime1">${Session.character.nexRegenereationTime?string("0")}</span>
+	 		</#if>
+		</td>
+	</tr> 
 	<tr>
 		<td class="ui-state-default ui-corner-all" width="50%" valign="middle" align="center">
 			<a href="${rc.getContextPath()}${pages.PAGE_MAP}${pages.PAGE_EXT}" >

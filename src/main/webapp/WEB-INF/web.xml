@@ -68,14 +68,14 @@
 
 	<!-- spring dispatcher  -->
 	<servlet>
-		<servlet-name>InfiniteWeb</servlet-name>
+		<servlet-name>Infinite</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<load-on-startup>2</load-on-startup>
 	</servlet>
 
 	<!-- All html requests will be redirected to spring dispatcher -->
 	<servlet-mapping>
-		<servlet-name>InfiniteWeb</servlet-name>
+		<servlet-name>Infinite</servlet-name>
 		<url-pattern>*.html</url-pattern>
 		<url-pattern>*.json</url-pattern>
 	</servlet-mapping>
@@ -124,7 +124,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			classpath*:applicationContext.xml
-			/WEB-INF/InfiniteWeb-servlet.xml
+			/WEB-INF/Infinite-servlet.xml
 		</param-value>
 	</context-param>
 

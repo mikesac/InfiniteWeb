@@ -144,6 +144,7 @@ public class CharactersList {
 		}
 		catch (Exception e) {
 			err = e.getMessage();
+			e.printStackTrace();
 		}
 		
 

@@ -70,7 +70,14 @@
 							<td>Answer</td><td><textarea name="answ_answer"></textarea></td>							
 						</tr>
 						<tr>								
-							<td>Required Level</td><td><input type="text"  value="0" name="answ_reqLevel" size="3"></td>							
+							<td>Required Level</td>
+							<td>
+								<input type="text" value="0" name="answ_reqLevel" size="3">
+								<select name="answ_strict">
+									<option value="false">Keep if higher</option>
+									<option value="true">Hide if higher</option>
+								</select>	
+							</td>							
 						</tr>
 						<tr>								
 							<td>Required Quest</td><td><input type="text" value="0" name="answ_reqQuest" size="3"></td>							
@@ -88,10 +95,21 @@
 							</td>							
 						</tr>
 						<tr>							
-							<td>Next Dialog</td><td><select name="answ_dialogId" id="answ_dialogId"></select></td>							
+							<td>Next Dialog</td><td><select style="width:200px" name="answ_dialogId" id="answ_dialogId"></select></td>							
 						</tr>
 						<tr>
-							<td>Redirect Url</td><td><input type="text" value="" name="answ_redirectUrl"></td>							
+							<td>Redirect Url</td>
+							<td>
+								<select name="answ_redirectUrl">
+									<option value="" selected="selected">No Redirect</option>
+									<option value="${pages.PAGE_MAP + pages.PAGE_EXT}">Back to Map</option>
+									<option value="${pages.PAGE_QUEST_ACTION + pages.PAGE_EXT}?act=0">Accept Quest</option>
+									<option value="${pages.PAGE_QUEST_ACTION + pages.PAGE_EXT}?act=2">Get Reward</option>
+									<option value="${pages.PAGE_SHOP + pages.PAGE_EXT}">Enter Item Shop</option>
+									<option value="${pages.PAGE_SSHOP + pages.PAGE_EXT}">Enter Spell Shop</option>
+									<option value="${pages.PAGE_MAPFIGHT + pages.PAGE_EXT}">Fight</option>
+								</select>
+							</td>							
 						</tr>
 					</table>
 				</form>		
@@ -143,12 +161,14 @@ function addPcAnswer(){
 			
 			var txt = document.forms['pc_answer'].answ_answer.value;
 			var rl = document.forms['pc_answer'].answ_reqLevel.value;
+			var str = document.forms['pc_answer'].answ_strict.value;
 			var rq = document.forms['pc_answer'].answ_reqQuest.value;
 			var rqs = document.forms['pc_answer'].answ_reqQuestStatus.value;
 			var rid = document.forms['pc_answer'].answ_dialogId.value;
 			var rurl = document.forms['pc_answer'].answ_redirectUrl.value;
+			
 	
-			addPcNode(nodeId,rl,rq,rqs,rid,rurl,txt,add_id);
+			addPcNode(nodeId,rl,str,rq,rqs,rid,rurl,txt,add_id);
 	
 			document.forms['pc_answer'].reset();
 			document.getElementById("editA").disabled=false;
@@ -161,9 +181,10 @@ function addPcAnswer(){
 	initEvents();
 }
 
-function addPcNode(nodeId,rl,rq,rqs,rid,rurl,txt,add_id){
+function addPcNode(nodeId,rl,str,rq,rqs,rid,rurl,txt,add_id){
 	var add_id = document.getElementById(add_id).parentNode;
-	var topbranch = $("<li><span class='answ' id='"+nodeId+"' rl='"+rl+"' rq='"+rq+"' rqs='"+rqs+"' rid='"+rid+"' rurl='"+rurl+"'>"+txt+"</span></li>").appendTo(add_id);
+	console.log(str)
+	var topbranch = $("<li><span class='answ' id='"+nodeId+"' rl='"+rl+"' str='"+str+"' rq='"+rq+"' rqs='"+rqs+"' rid='"+rid+"' rurl='"+rurl+"'>"+txt+"</span></li>").appendTo(add_id);
 	$("#browser").treeview();
 }
 
@@ -171,6 +192,7 @@ function editPcAnswer(){
 	var nodeId = document.forms['pc_answer'].answ_id.value;			
 	var txt = document.forms['pc_answer'].answ_answer.value;
 	var rl = document.forms['pc_answer'].answ_reqLevel.value;
+	var str = document.forms['pc_answer'].answ_strict.value;
 	var rq = document.forms['pc_answer'].answ_reqQuest.value;
 	var rqs = document.forms['pc_answer'].answ_reqQuestStatus.value;
 	var rid = document.forms['pc_answer'].answ_dialogId.value;
@@ -183,6 +205,7 @@ function editPcAnswer(){
 	newNode.innerHTML = txt;
 	newNode.id = nodeId;
 	newNode.setAttribute("rl",rl);
+	newNode.setAttribute("str",str);
 	newNode.setAttribute("rq",rq);
 	newNode.setAttribute("rqs",rqs);
 	newNode.setAttribute("rid",rid);
@@ -212,6 +235,7 @@ function addNpcDialog(){
 	document.forms['npcdialog'].reset();
 	document.getElementById("editQ").disabled=true;
 	document.getElementById("delQ").disabled=true;
+	updateDialogCombo();
 }
 
 function addNpcNode(nodeId,txt){
@@ -227,6 +251,7 @@ function editNpcDialog()
 	document.forms['npcdialog'].reset();
 	document.getElementById("editQ").disabled=true;
 	document.getElementById("delQ").disabled=true;
+	updateDialogCombo();
 }
 
 function delNpcDialog(){
@@ -236,6 +261,7 @@ function delNpcDialog(){
 	document.forms['npcdialog'].reset();
 	document.getElementById("editQ").disabled=true;
 	document.getElementById("delQ").disabled=true;
+	updateDialogCombo();
 }
 
 
@@ -265,6 +291,7 @@ function selectNode(id){
 			document.forms['pc_answer'].answ_id.value = id;
 			document.forms['pc_answer'].answ_answer.value = document.getElementById(id).innerHTML;
 			document.forms['pc_answer'].answ_reqLevel.value = document.getElementById(id).getAttribute('rl');
+			document.forms['pc_answer'].answ_strict.value = document.getElementById(id).getAttribute('str');
 			document.forms['pc_answer'].answ_reqQuest.value = document.getElementById(id).getAttribute('rq');
 			document.forms['pc_answer'].answ_reqQuestStatus.value = document.getElementById(id).getAttribute('rqs');
 			document.forms['pc_answer'].answ_dialogId.value = document.getElementById(id).getAttribute('rid');
@@ -322,14 +349,15 @@ function loadDialog(){
 			{
 				addNpcNode(json.dialog[i].id,json.dialog[i].sentence);
 				nAsk++;
-				for(var j=0;j<json.dialog[i].answer.length;j++)
+				for(var j=0;j<json.dialog[i].answers.length;j++)
 				{
-					var n = json.dialog[i].answer[j];					
-					addPcNode(json.dialog[i].id+"_"+j,n.reqLevel,n.reqQuest,n.reqQuestStatus,n.dialogId,n.redirectUrl,n.answer,json.dialog[i].id);
+					var n = json.dialog[i].answers[j];					
+					addPcNode(json.dialog[i].id+"_"+j,n.reqLevel,n.strict,n.reqQuest,n.reqQuestStatus,n.dialogId,n.redirectUrl,n.answer,json.dialog[i].id);
 					nAnsw++;
 				}
 			}
 			initEvents();
+			updateDialogCombo();
 		}
 	);	
 	
@@ -343,7 +371,7 @@ function getJSON(){
 	for(var i=0;i<asks.length;i++){
 	
 		if(i>0){ json+=",";	}	
-		json += '{"id":"'+asks[i].id+'","sentence":"'+asks[i].innerHTML+'","answer":[';
+		json += '{"id":' + asks[i].id + ',"sentence":"' + asks[i].innerHTML + '","answers":[';
 		
 		var node = asks[i].nextSibling
 		while(node){
@@ -353,9 +381,10 @@ function getJSON(){
 			json += '{';
 				json +=	'"answer":"'+answ.innerHTML+'",';
 				json +=	'"reqLevel":'+answ.getAttribute("rl")+',';
+				json +=	'"strict":'+answ.getAttribute("str")+',';
 				json +=	'"reqQuest":'+answ.getAttribute("rq")+',';
 				json +=	'"reqQuestStatus":'+answ.getAttribute("rqs")+',';
-				json +=	'"dialogId":"'+answ.getAttribute("rid")+'",';
+				json +=	'"dialogId":'+answ.getAttribute("rid")+',';
 				json +=	'"redirectUrl":"'+answ.getAttribute("rurl")+'"';
 				json +=	'}';
 			
@@ -371,6 +400,24 @@ function getJSON(){
 	
 	document.getElementById('json_txt').value = json;
 	
+}
+
+function updateDialogCombo(){
+	var el = document.getElementById("answ_dialogId");
+	el.innerHTML="";
+	
+	var op = document.createElement("option");
+	op.value = -1;
+	op.innerHTML = "None";
+	el.appendChild(op);
+	
+	var asks = $('.ask');
+	for(var i=0;i<asks.length;i++){
+		var op = document.createElement("option");
+		op.value = asks[i].id;
+		op.innerHTML = asks[i].innerHTML;
+		el.appendChild(op);
+	}
 }
 
 </script>

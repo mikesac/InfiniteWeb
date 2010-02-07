@@ -1,7 +1,8 @@
 package org.infinite.web;
 
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,7 +47,10 @@ public class DialogController {
 	public DialogEngine getDialogEngine() {return dialogEngine;}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView initDialog(HttpServletRequest req, HttpServletResponse response,  ModelMap model){
+	public ModelAndView initDialog(
+			HttpServletRequest req, HttpServletResponse response,  ModelMap model,
+			@RequestParam(value="id",required=false) Integer id
+	){
 
 		Character c = null;
 		Object[] out = getPages().initController(c, model, req);
@@ -58,8 +62,7 @@ public class DialogController {
 			return (ModelAndView)out[0];
 		}
 
-
-		ArrayList<Dialog> dialogs;
+		List<Dialog> dialogs;
 		Npc npc = null;
 		
 		try {
@@ -73,18 +76,32 @@ public class DialogController {
 
 			npc = getDaoManager().getNpcById(NpcId);
 
-			//TODO remove servlet context usage
 			try {
-				dialogs = getDialogEngine().getDialogData( req.getSession().getServletContext().getResourceAsStream("/data/npc/"+ npc.getDialog() + ".properties") );
-			} catch (IOException e) {
+				
+				String dialogName = "";
+				String img = "";
+				if(npc.isIsmonster()){
+					dialogName = getPages().getDATA_MONST_PATH() + npc.getDialog() + getPages().getDATA_MONST_EXT();
+					img = getPages().getIMG_MONST_PATH_BIG() + npc.getImage() + getPages().getIMG_MONST_EXT();
+				}else{
+					dialogName = getPages().getDATA_NPC_PATH() + npc.getDialog() + getPages().getDATA_NPC_EXT();
+					img = getPages().getIMG_NPC_PATH_BIG() + npc.getImage() + getPages().getIMG_NPC_EXT();
+				}				
+				dialogs = getDialogEngine().getDialogData( new FileInputStream(dialogName) );
+				model.addAttribute("pic",img );
+			} 
+			catch (IOException e) {
 				throw new Exception("No dialogs file found! "+e.getMessage() );
 			} 
 		} catch (Exception e) {
 			return new ModelAndView( getPages().getRedirect(req,getPages().getPAGE_MAP(), e.getMessage()) );
 		}
 
-		model.addAttribute("dialog", getDialogEngine().selectDialog(0, dialogs) );
+		Dialog d = getDialogEngine().selectDialog(id==null?0:id, dialogs);
+		model.addAttribute("dialog", d );
+		model.addAttribute("answers", getDialogEngine().getAnswers(d, c) );
 		model.addAttribute("npc",npc);
+		
 
 		return new ModelAndView(getPages().getPAGE_NPCDIALOG(), model);
 	}
@@ -112,7 +129,7 @@ public class DialogController {
 		}
 
 
-		ArrayList<Dialog> dialogs;
+		List<Dialog> dialogs;
 		Npc npc = null;
 		
 		try {

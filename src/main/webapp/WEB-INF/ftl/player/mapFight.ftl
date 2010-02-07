@@ -125,7 +125,7 @@
 		<tr>
 			<td>
 				<div class="iconmedium"
-					style="background-image: url(${rc.getContextPath()}/imgs/maps/icons/map.png);">
+					style="background-image: url(${rc.getContextPath()}/imgs/maps/map.png);">
 				<div class="tile"><a
 					href="${rc.getContextPath() + pages.PAGE_MAP + pages.PAGE_EXT}" ></a></div>
 				</div>

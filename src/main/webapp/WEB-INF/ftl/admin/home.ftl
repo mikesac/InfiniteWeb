@@ -24,16 +24,15 @@
 	</tr>
 	<tr>
 		<td>
-			<@panel title="Manage Monsters" icon="person" url="${base + pages.ADMIN_NPC + pages.PAGE_EXT}" img="${pages.IMG_WEB_PATH}/admin/monsters.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
-		</td>
-		<td>
-			<@panel title="Manage NPCs" icon="person" url="" img="${pages.IMG_WEB_PATH}/admin/NPCs.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
+			<@panel title="Manage Monsters/NPCs" icon="person" url="${base + pages.ADMIN_NPC + pages.PAGE_EXT}" img="${pages.IMG_WEB_PATH}/admin/monsters.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
 		</td>
 		<td>
 			<@panel title="Manage Dialogs" icon="person" url="${base + pages.ADMIN_DIALOG + pages.PAGE_EXT}" img="${pages.IMG_WEB_PATH}/admin/dialogs.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
 		</td>
 		<td>
-			<@panel title="Manage Quests" icon="person" url="" img="${pages.IMG_WEB_PATH}/admin/quests.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
+			<@panel title="Manage Quests" icon="person" url="javascript:alert('ToDo')" img="${pages.IMG_WEB_PATH}/admin/quests.gif" alt="" width="200px" height="120px" img_w=100 img_h=100 />
+		</td>
+		<td>			
 		</td>
 	</tr>
 </table>

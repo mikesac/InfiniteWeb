@@ -7,26 +7,26 @@
 
 <div style="width: 1020px;">
 	<div style="padding: 1% 1% 1% 1%; margin-bottom: 30px;">
-		<table>
+		<table width="100%">
 			<tr>
-				<td>
-					<p>${dialog.sentence}</p>
-					<table>
-					<#list dialog.answers as answer>
-						<#if character.level &gt;= answer.reqLevel >
+				<td valign="top" style="padding:2% 2% 2% 2%;background-image:url(../imgs/web/dialog/paper.jpg);border: 3px double #945205;">
+					<h3>${dialog.sentence}</h3>
+					<ul>
+					<#list answers as answer>
+						<li>						
 							<#if answer.redirectUrl?exists && answer.redirectUrl!="">
-							<a href="${answer.redirectUrl}">
+							<a href="${rc.getContextPath()+answer.redirectUrl}">
 							<#else>
-							<a href="${rc.getContextPath()+pages.PAGE_NPCDIALOG}?id=${answer.dialogId}">
+							<a href="${rc.getContextPath()+pages.PAGE_NPCDIALOG+pages.PAGE_EXT}?id=${answer.dialogId}">
 							</#if>
 								${answer.answer}
 							</a>	
-						</#if>
+							</li><br/>
 					</#list>		
-					</table>
+					</ul>
 				</td>
-				<td width="420px">
-					<img src="${pages.IMG_NPC_PATH_BIG +  npc.image + pages.IMG_NPC_EXT}" />
+				<td width="420px" >
+					<img src="${pic}" style="border: 3px double lightgray;">
 				</td>
 			</tr>
 		</table>
