@@ -307,8 +307,8 @@ public Object[] initController(Character c, ModelMap model, HttpServletRequest r
 			out[0]=new ModelAndView( getRedirect(req,getPAGE_ROOT(),"Character not found! Please re-login." ));
 		}
 		else{
-			model.addAttribute("curr_xp", c.getExperience() ) ;
-			model.addAttribute("next_xp", AiEngine.getLevelPx( c.getLevel()+1 ) );
+//			model.addAttribute("curr_xp", c.getExperience() ) ;
+//			model.addAttribute("next_xp", AiEngine.getLevelPx( c.getLevel()+1 ) );
 			out[0] = c;
 			out[1] = model;
 		}		

@@ -1,12 +1,15 @@
 package org.infinite.web.admin;
 
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.infinite.db.dao.DaoManager;
 import org.infinite.db.dto.Area;
 import org.infinite.db.dto.AreaItem;
+import org.infinite.db.dto.Player;
 import org.infinite.db.dto.TomcatRoles;
 import org.infinite.engines.map.MapEngine;
 import org.infinite.objects.Map;
@@ -68,7 +71,7 @@ public class AreaItemManager{
 		model.addAttribute("mapbackground", m.getMapBackground());
 		model.addAttribute("icons",getDaoManager().getAreaItemsIcons());
 		model.addAttribute("allareas",getDaoManager().listAllArea());
-		model.addAttribute("map",m);
+		model.addAttribute("adminmap",m);
 			
 		model.addAttribute(getPages().getCONTEXT_PAGES(), getPages());
 		
@@ -184,11 +187,24 @@ public class AreaItemManager{
 				break;
 			case 2:
 				try{
-				AreaItem ai = (AreaItem) getDaoManager().getAreaItem( aiId );
-				getDaoManager().delete(ai);
-				model.addAttribute(getPages().getCONTEXT_ERROR(),"Area Item Deleted");
+				AreaItem ai = (AreaItem) getDaoManager().getAreaItem( aiId );	
+				ArrayList<Player> list = getDaoManager().getAllPlayerInArea(aiId);
+				
+				if(list.size()==0){				
+					getDaoManager().delete(ai);
+					model.addAttribute(getPages().getCONTEXT_ERROR(),"Area Item Deleted");
+				}
+				else{
+					StringBuffer sb = new StringBuffer("Player(s) ");
+					for(Player p : list){
+						sb.append("[").append(p.getName()).append("] ");
+					}
+					sb.append(" are in this area, please move them first.");
+					throw new Exception(sb.toString());
+				}
+				
 				}catch (Throwable e) {
-					throw new Exception("Could not delete Area "+aiName + " please contact admin");
+					throw new Exception("Could not delete Area "+aiName + ":"+e.getMessage());
 				}
 				break;
 			}

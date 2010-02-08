@@ -16,7 +16,7 @@
 					<tr>
 					<#list fight_report_s1 as side>
 						<td align="center">
-							<img style="border:1px outset gray;" width="100px" height="100px" src="../imgs/player/${side.pic}" alt="${side.pic}"  title="${side.pic}" />					
+							<img style="border:1px outset gray;" width="100px" height="100px" src="<#if side.monster>${pages.IMG_MONST_PATH}<#else>${pages.IMG_PC_PATH}</#if>${side.pic}" alt="${side.pic}" title="${side.pic}" />					
 							<br/>${side.name}
 						</td>
 					</#list>
@@ -33,7 +33,7 @@
 					<tr>
 					<#list fight_report_s2 as side>
 						<td align="center">
-							<img style="border:1px outset gray;" width="100px" height="100px" src="${pages.IMG_MONST_PATH + side.pic}.jpg" alt="${side.pic}"  title="${side.pic}" />					
+							<img style="border:1px outset gray;" width="100px" height="100px" src="<#if side.monster>${pages.IMG_MONST_PATH}<#else>${pages.IMG_PC_PATH}</#if>${side.pic}.jpg" alt="${side.pic}" title="${side.pic}" />					
 							<br/>${side.name}
 						</td>
 					</#list>
@@ -60,11 +60,11 @@
 						<img width="30px" height="30px" src="${pages.IMG_SPELL_PATH + round.attackImg + pages.IMG_SPELL_EXT}"	alt="${round.attackName}" />
 				    <#break>
 					<#case type_idle>
-						<img width="30px" height="30px" src="${pages.IMG_WEB_PATH}fight/rest.jpg"	alt=" />
+						<img width="30px" height="30px" src="${pages.IMG_WEB_PATH}fight/rest.gif" alt="rest" />
 				    <#break>
 				    <#default>
 				    	<#list round.attackImg?split(",") as img>
-							<img width="30px" height="30px" src="${pages.IMG_ITEM_PATH + round.attackImg + pages.IMG_ITEM_EXT}"	alt="${round.attackName}" />
+							<img width="30px" height="30px" src="${pages.IMG_ITEM_PATH + img + pages.IMG_ITEM_EXT}"	alt="${round.attackName}" />
 						</#list>
 				    <#break>
 				</#switch>
@@ -97,7 +97,7 @@
 						</#if>
 				    <#break>
 					<#case type_idle>
-						${round.attacker} needs to rest, regaining ${round.attackDmg} AP/MP";
+						${round.attacker} needs to rest, regaining ${round.attackDmg} AP/MP
 				    <#break>
 				</#switch>
 			</td>
@@ -111,7 +111,7 @@
 				<td colspan="2">
 					${round.defender} dies, ${round.attacker} gains	${round.gold} GP, ${round.items?size} items 
 					<#list round.items as item>
-						<img width="20" title="${item.name}" alt="${item.name}" src="${pages.IMG_ITEM_PATH + item.image + pages.IMG_ITEM_EXT}"/>&nbsp;
+						<img width="20" title="${item.name}" alt="${item.name}" src="${pages.IMG_ITEM_PATH + item.image?lower_case + pages.IMG_ITEM_EXT}"/>&nbsp;
 					</#list>					
 					and ${round.px} PX.
 				</td>
@@ -125,7 +125,7 @@
 		<tr>
 			<td>
 				<div class="iconmedium"
-					style="background-image: url(${rc.getContextPath()}/imgs/maps/map.png);">
+					style="background-image: url(../imgs/web/maps/map.png);">
 				<div class="tile"><a
 					href="${rc.getContextPath() + pages.PAGE_MAP + pages.PAGE_EXT}" ></a></div>
 				</div>

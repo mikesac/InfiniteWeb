@@ -59,8 +59,10 @@ public class MapController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView prepareMap(
 			@RequestParam(value="m",required=false) String next,
-			HttpServletRequest req, HttpServletResponse resp,ModelMap model){
+			HttpServletRequest req, HttpServletResponse resp,ModelMap model2){
 
+		ModelMap model = new ModelMap();
+		
 		Character c = null;
 		Object[] out = getPages().initController(c, model, req);
 		if(out[0] instanceof Character){
@@ -139,8 +141,10 @@ public class MapController {
 			return new ModelAndView( getPages().getRedirect(req,nextArea.getUrl(),error) );
 		}
 		else{
-			if(error!=null)
+			if(error!=null){
 				model.addAttribute(getPages().getCONTEXT_ERROR(),error);
+			}
+			
 			return new ModelAndView(getPages().getPAGE_MAP(),model );
 		}
 			

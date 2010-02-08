@@ -23,7 +23,7 @@
 				<#list mapbackground as row>
 					<tr>
 					<#list row as cell>
-						<td style="width:${map_width / map.nx};height:${map_height / map.ny};background-image:url('${pages.IMG_MAP_PATH}${cell.background}.jpg');">
+						<td style="width:${map_width / adminmap.nx};height:${map_height / adminmap.ny};background-image:url('${pages.IMG_MAP_PATH}${cell.background}.jpg');">
 						<#list cell.items as areaItem>			
 							<div id="${areaItem.name}" class="iconmedium" style="position:relative;top:${areaItem.y}px;left:${areaItem.x}px;background-image: url(../${pages.IMG_WEB_PATH}maps/${areaItem.icon}.png);">
 								<div class="tile">

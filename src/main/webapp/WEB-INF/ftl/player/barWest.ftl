@@ -67,7 +67,7 @@
 		<td colspan=2>
 			<div id="bar_xp">
 				<span class="pblabel">
-					${curr_xp} / ${next_xp}
+					${Session.character.experience} / ${Session.character.nextExperience}
 				</span>
 			</div>
 		</td>
@@ -175,8 +175,7 @@ $("#bar_life").progressbar({	value: ${ ((100 * Session.character.pointsLife ) / 
 $("#bar_mana").progressbar({	value: ${ ((100 * Session.character.pointsMagic ) / Session.character.pointsMagicMax )?int} });
 $("#bar_action").progressbar({	value: ${ ((100 * Session.character.pointsAction?float ) / Session.character.pointsActionMax )?int} });
 $("#bar_charm").progressbar({	value: ${ ((100 * Session.character.pointsCharm ) / Session.character.pointsCharmMax )?int} });
-$("#bar_xp").progressbar({	value: ${ (100 * curr_xp / next_xp)?int} });
-
+$("#bar_xp").progressbar({	value: ${ (100 * Session.character.experience / Session.character.nextExperience)?int} });
 
 
 el = document.getElementById("regtime1");
